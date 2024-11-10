@@ -25,7 +25,7 @@ public class PlayerAttacking : MonoBehaviour
     [Header("AttackModifiers")]
     public float attackDistance = 10f;
     public float attackDuration = 0.5f;
-    Vector2 attackDirection;
+    public Vector2 attackDirection;
     public float attackRangeAngle = 67.75f;
 
     [Header("Weapon")]
@@ -120,12 +120,12 @@ public class PlayerAttacking : MonoBehaviour
         playerAnimator.SetTrigger("Slash");
         StartCoroutine(attackFlip());
 
-        //hit any enemies?
-        attackCheck(attackDirection);
         //Which attack?
         comboTimer = comboTime;
         ChooseAttack();
         currentAttack++;
+        //hit any enemies?
+        attackCheck(attackDirection);
     }
 
     //The feel & rotations & sprites of swing 1
@@ -182,6 +182,7 @@ public class PlayerAttacking : MonoBehaviour
         canAttack = false;
         playerMovement.canMove = false;
         weapon.GetComponent<SpriteRenderer>().enabled = true;
+        attackDistance += 0.5f;
         //
         slashSR.sprite = slashSprites[1];
         slashTransform.position = SlashOrientations[2].position;
@@ -201,7 +202,8 @@ public class PlayerAttacking : MonoBehaviour
         weapon.transform.localRotation = Quaternion.identity;
         weapon.GetComponent<SpriteRenderer>().enabled = false;
         playerMovement.canMove = true;
-
+        //
+        attackDistance -= 0.5f;
         yield return new WaitForSeconds(0.5f);
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         attackDirection = (mousePos - (Vector2)weaponHolder.transform.position).normalized;
@@ -228,6 +230,9 @@ public class PlayerAttacking : MonoBehaviour
         foreach (var hit in hitColliders)
         {
             if (hit.CompareTag("Enemy")) {
+                Rigidbody2D enemyRb = hit.GetComponent<Rigidbody2D>();
+                Goober gooberScript = hit.GetComponent<Goober>();
+
                 Vector2 toTarget = (hit.transform.position - transform.position).normalized;
                 float angle = Vector2.Angle(attackDir, toTarget);
 
@@ -235,27 +240,23 @@ public class PlayerAttacking : MonoBehaviour
                 {
                     //Rigidbody2D enemyRb = hit.GetComponent<Rigidbody2D>();
                     print("hit");
-                    rb.AddForce(attackDir*knockback*-1, ForceMode2D.Impulse);
+                    if(currentAttack != 3)
+                    {
+                        enemyRb.AddForce(attackDir * knockback * 100, ForceMode2D.Impulse);
+                    }
+                    else
+                    {
+                        enemyRb.AddForce(attackDir * knockback * 200, ForceMode2D.Impulse);
+                    }
                 }
             }
         }
     }
 
-
-    //TODO --- when idle, it will not flip to face the other direction. if left and swing right. broken.
     private IEnumerator attackFlip()
     {
         SpriteRenderer weaponSR = weapon.GetComponent<SpriteRenderer>();
         //RenderLayer
-        if (attackDirection.y > 0)
-        {
-            
-        }
-        else if (attackDirection.y < 0)
-        {
-            
-        }
-
         if (Mathf.Abs(attackDirection.y) > Mathf.Abs(attackDirection.x) && attackDirection.y > 0f) //Aiming Up
         {
             weaponSR.sortingOrder = 3;
@@ -285,14 +286,20 @@ public class PlayerAttacking : MonoBehaviour
             weaponSR.sortingOrder = 5;
             if (attackDirection.x > 0f) // *arm to the left is default sprite* more right, nothing happens if more right
             {
-
-
                 playerMovement.canFlip = false;
                 playerSR.flipX = true;
                 yield return new WaitForSeconds(attackDuration);
                 playerSR.flipX = false;
                 playerMovement.canFlip = true;
                 print("right");
+            }
+            else
+            {
+                playerMovement.canFlip = false;
+                playerSR.flipX = false;
+                yield return new WaitForSeconds(attackDuration);
+                playerMovement.canFlip = true;
+                print("left");
             }
         }
     }
