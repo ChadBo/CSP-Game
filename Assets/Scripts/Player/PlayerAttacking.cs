@@ -11,7 +11,7 @@ public class PlayerAttacking : MonoBehaviour
     private SpriteRenderer playerSR;
     private float attackInput;
 
-    private bool canAttack = true;
+    [HideInInspector] public bool canAttack = true;
     [Header("Combo")]
     public int currentAttack = 0;
     public UnityEvent[] SwordAttacks;
@@ -291,7 +291,6 @@ public class PlayerAttacking : MonoBehaviour
                 yield return new WaitForSeconds(attackDuration);
                 playerSR.flipX = false;
                 playerMovement.canFlip = true;
-                print("right");
             }
             else
             {
@@ -299,7 +298,6 @@ public class PlayerAttacking : MonoBehaviour
                 playerSR.flipX = false;
                 yield return new WaitForSeconds(attackDuration);
                 playerMovement.canFlip = true;
-                print("left");
             }
         }
     }

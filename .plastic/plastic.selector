@@ -1,0 +1,4 @@
+repository "CSP Game@cboxer440@cloud"
+  path "/"
+    br "/main"
+    co "/main"

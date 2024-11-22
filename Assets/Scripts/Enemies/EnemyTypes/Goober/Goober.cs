@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Tilemaps;
 
 public class Goober : EnemyClass
 {
@@ -11,6 +12,12 @@ public class Goober : EnemyClass
     private string[] states = { "Patrol", "Chase", "Attack" };
     public int state = 0;
     public bool pause = false;
+    public float maxWanderTime = 6f;
+    public float curWanderTime;
+
+    private Tilemap wall;
+
+    public bool printdistance = false;
 
     NavMeshAgent agent;
 
@@ -21,6 +28,7 @@ public class Goober : EnemyClass
         agent.updateUpAxis = false;
 
         player = GameObject.FindWithTag("Player").transform;
+        wall = GameObject.FindWithTag("Wall").GetComponent<Tilemap>();
         //target = player;
     }
 
@@ -35,6 +43,7 @@ public class Goober : EnemyClass
         {
             chasePlayer();
         }
+        wanderCountdown();
     }
 
     private void patrol()
@@ -54,18 +63,45 @@ public class Goober : EnemyClass
 
     private IEnumerator wander()
     {
-        if (wanderPosition == Vector2.zero)
+        if (wanderPosition == Vector2.zero || curWanderTime == 0f)
         {
+            // Wait for a random interval before setting a new position
             yield return new WaitForSeconds(Random.Range(0, 4));
-            wanderPosition = new Vector2Int((int)Random.Range(0, wanderRange), (int)Random.Range(0, wanderRange));
-            //print(wanderPosition);
+
+            // Generate a nearby random position within the wander range
+            float randomX = Random.Range(-wanderRange, wanderRange);
+            float randomY = Random.Range(-wanderRange, wanderRange);
+            wanderPosition = (Vector2)transform.position + new Vector2(randomX, randomY);
+            if (wall.GetTile(wall.WorldToCell(wanderPosition)) != null)
+            {
+                wanderPosition = Vector2.zero;
+            }
+            else
+            {
+                curWanderTime = maxWanderTime;
+            }
+
         }
+
         agent.speed = roamingSpeed;
-        agent.SetDestination(((Vector3Int)wanderPosition));
-        //reach destination
-        if (new Vector2(transform.position.x, transform.position.y) == wanderPosition)
+        agent.SetDestination(wanderPosition);
+
+        // Check if the enemy is close enough to the target position
+        if (Vector3.Distance(transform.position, wanderPosition) < 0.5f)
         {
-            wanderPosition = Vector2Int.zero;
+            wanderPosition = Vector2.zero; // Reset to allow the next random position
+        }
+    }
+    private void wanderCountdown()
+    {
+        if(curWanderTime == 0f) { return; }
+        else if(curWanderTime > 0f)
+        {
+            curWanderTime -= Time.deltaTime;
+        }
+        else if(curWanderTime < 0f)
+        {
+            curWanderTime = 0f;
         }
     }
 
