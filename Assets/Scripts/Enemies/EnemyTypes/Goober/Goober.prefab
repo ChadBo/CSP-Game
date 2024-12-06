@@ -48,21 +48,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7042f8f81b1c4995a3fe36b9b229cb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 2
+  life: 100
   knockback: 1
   sightRadius: 5
   wanderPosition: {x: 0, y: 0}
   wanderRange: 2
-  roamingSpeed: 0.5
+  roamingSpeed: 0.4
   playerSeen: 0
-  attackingRadius: 1.5
+  attackingRadius: 1
   chaseDistance: 10
   chaseSpeed: 3.5
   state: 0
   pause: 0
   maxWanderTime: 6
   curWanderTime: 6
-  printdistance: 0
+  attackDamage: 15
 --- !u!212 &8546547370090875077
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -104,7 +104,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   m_Color: {r: 0.40443736, g: 0.9716981, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0

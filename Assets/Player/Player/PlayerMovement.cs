@@ -11,9 +11,11 @@ public class PlayerMovement : MonoBehaviour
     public float rollSpeed = 7f;
     public float sprintSpeed = 6.5f;
     public float moveSpeed;
-    public bool canMove = true;
 
-    [SerializeField] private Vector2 movement;
+    public bool canMove = true;
+    public bool updateMovement = true; // only update movement when the player gives further input, then, operate like normal.
+
+    public Vector2 movement;
     public Vector2 facing = new Vector2(0,-1);
     private Rigidbody2D rb;
     private Animator animator;
@@ -49,9 +51,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void movePlayer()
     {
-        if (!isRolling)
+        if (updateMovement && !isRolling)
         {
             movement.Set(InputManager.Movement.x, InputManager.Movement.y);
+        }
+        if(!updateMovement)
+        {
+            MovePlayerNormallyWhenTheyInput();
         }
         if (rollInput == 1 && checkIfCanRoll())
         {
@@ -113,21 +119,27 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(0.25f);
         canRoll = true;
     }
-    //TODO fix downward roll
+
     private bool checkIfCanRoll()
     {
-        if(!PlayerAttack.canAttack || !canRoll) { return false; }
+        if(!canRoll && canMove) { return false; }
         RaycastHit2D wall;
-        wall = Physics2D.Raycast(transform.position, movement, rollCheckDistance, wallLayer);
+        int wallLayerMask = 1 << 7; // Create a LayerMask for layer 7
+        wall = Physics2D.Raycast(transform.position, movement, rollCheckDistance, wallLayerMask);
         if (wall.collider != null)
         {
-            print(wall.collider.name);
-            if(wall.collider.CompareTag("Wall"))
-            {
-                print("NoRoll");
-                return false;
-            }
+            return false;
         }
+
         return true;
+    }
+
+    private void MovePlayerNormallyWhenTheyInput()
+    {
+        //print(InputManager.Movement.x);
+        if(InputManager.Movement.x > 0 || InputManager.Movement.y > 0)
+        {
+            updateMovement = true;
+        }
     }
 }

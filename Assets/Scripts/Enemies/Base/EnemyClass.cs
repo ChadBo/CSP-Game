@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyClass : MonoBehaviour
 {
     [Header("Core")]
-    public float health;
+    public float life;
     public bool knockback;
 
     [Header("Player NOT Seen")]
@@ -20,9 +20,16 @@ public class EnemyClass : MonoBehaviour
     public float chaseDistance;
     public float chaseSpeed;
 
-
     private void Update()
     {
-        
+        Die();
+    }
+
+    private void Die()
+    {
+        if(life <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

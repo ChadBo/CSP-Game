@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class PlayerAttacking : MonoBehaviour
 {
-    private PlayerMovement playerMovement;
+    private PlayerMovement pm;
     private Rigidbody2D rb;
     private Animator playerAnimator;
     private SpriteRenderer playerSR;
@@ -27,6 +27,8 @@ public class PlayerAttacking : MonoBehaviour
     public float attackDuration = 0.5f;
     public Vector2 attackDirection;
     public float attackRangeAngle = 67.75f;
+    public int slashDamage;
+    public int stabDamage;
 
     [Header("Weapon")]
     public GameObject weapon;
@@ -40,7 +42,7 @@ public class PlayerAttacking : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        playerMovement = GetComponent<PlayerMovement>();
+        pm = GetComponent<PlayerMovement>();
         playerAnimator = GetComponent<Animator>();
         playerSR = GetComponent<SpriteRenderer>();
 
@@ -132,7 +134,7 @@ public class PlayerAttacking : MonoBehaviour
     private IEnumerator Swing1Feel()
     {
         canAttack = false;
-        playerMovement.canMove = false;
+        pm.canMove = false;
         weapon.GetComponent<SpriteRenderer>().enabled = true;
         //
         slashSR.enabled = true;
@@ -148,15 +150,15 @@ public class PlayerAttacking : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         weapon.transform.localRotation = Quaternion.identity;
         weapon.GetComponent<SpriteRenderer>().enabled = false;
-        playerMovement.canMove = true;
+        pm.canMove = true;
         canAttack = true;
     }
     private IEnumerator Swing2Feel()
     {
         canAttack = false;
-        playerMovement.canMove = false;
+        pm.canMove = false;
         weapon.GetComponent<SpriteRenderer>().enabled = true;
-        //slash setup
+        //
         slashSR.enabled = true;
         slashSR.flipY = true;
         slashTransform.position = SlashOrientations[1].position;
@@ -174,15 +176,16 @@ public class PlayerAttacking : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         weapon.transform.localRotation = Quaternion.identity;
         weapon.GetComponent<SpriteRenderer>().enabled = false;
-        playerMovement.canMove = true;
+        pm.canMove = true;
         canAttack = true;
     }
     private IEnumerator StabFeel()
     {
         canAttack = false;
-        playerMovement.canMove = false;
+        pm.canMove = false;
         weapon.GetComponent<SpriteRenderer>().enabled = true;
         attackDistance += 0.5f;
+        attackRangeAngle *= 0.25f;
         //
         slashSR.sprite = slashSprites[1];
         slashTransform.position = SlashOrientations[2].position;
@@ -201,8 +204,9 @@ public class PlayerAttacking : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         weapon.transform.localRotation = Quaternion.identity;
         weapon.GetComponent<SpriteRenderer>().enabled = false;
-        playerMovement.canMove = true;
+        pm.canMove = true;
         //
+        attackRangeAngle *= 4f;
         attackDistance -= 0.5f;
         yield return new WaitForSeconds(0.5f);
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -222,7 +226,7 @@ public class PlayerAttacking : MonoBehaviour
             weaponHolder.transform.rotation = Quaternion.Euler(0f, 0f, angle);
         }
     }
-
+    //DEALING DAMAGE & WHATNOT
     private void attackCheck(Vector2 attackDir)
     {
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, attackDistance);
@@ -239,14 +243,16 @@ public class PlayerAttacking : MonoBehaviour
                 if (angle <= attackRangeAngle) // Check for objects within a sector
                 {
                     //Rigidbody2D enemyRb = hit.GetComponent<Rigidbody2D>();
-                    print("hit");
+                    print("Enemy hit!");
                     if(currentAttack != 3)
                     {
                         enemyRb.AddForce(attackDir * knockback * 100, ForceMode2D.Impulse);
+                        gooberScript.life -= slashDamage;
                     }
                     else
                     {
                         enemyRb.AddForce(attackDir * knockback * 200, ForceMode2D.Impulse);
+                        gooberScript.life -= stabDamage;
                     }
                 }
             }
@@ -262,11 +268,11 @@ public class PlayerAttacking : MonoBehaviour
             weaponSR.sortingOrder = 3;
             if (attackDirection.x < 0f) // *arm to the right is default sprite* more left, nothing happens if more right
             {
-                playerMovement.canFlip = false;
+                pm.canFlip = false;
                 playerSR.flipX = true;
                 yield return new WaitForSeconds(attackDuration);
                 playerSR.flipX = false;
-                playerMovement.canFlip = true;
+                pm.canFlip = true;
             }
         }
         else if (Mathf.Abs(attackDirection.y) > Mathf.Abs(attackDirection.x) && attackDirection.y < 0f) //Aiming down
@@ -274,11 +280,11 @@ public class PlayerAttacking : MonoBehaviour
             weaponSR.sortingOrder = 5;
             if (attackDirection.x > 0f) // *arm to the left is default sprite* more right, nothing happens if more right
             {
-                playerMovement.canFlip = false;
+                pm.canFlip = false;
                 playerSR.flipX = true;
                 yield return new WaitForSeconds(attackDuration);
                 playerSR.flipX = false;
-                playerMovement.canFlip = true;
+                pm.canFlip = true;
             }
         }
         else
@@ -286,18 +292,18 @@ public class PlayerAttacking : MonoBehaviour
             weaponSR.sortingOrder = 5;
             if (attackDirection.x > 0f) // *arm to the left is default sprite* more right, nothing happens if more right
             {
-                playerMovement.canFlip = false;
+                pm.canFlip = false;
                 playerSR.flipX = true;
                 yield return new WaitForSeconds(attackDuration);
                 playerSR.flipX = false;
-                playerMovement.canFlip = true;
+                pm.canFlip = true;
             }
             else
             {
-                playerMovement.canFlip = false;
+                pm.canFlip = false;
                 playerSR.flipX = false;
                 yield return new WaitForSeconds(attackDuration);
-                playerMovement.canFlip = true;
+                pm.canFlip = true;
             }
         }
     }
