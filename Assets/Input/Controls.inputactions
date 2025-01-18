@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Sprint",
+                    "type": "Button",
+                    "id": "25fe895e-1235-4172-b1e6-c0124b3989b6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -93,7 +102,7 @@
                     "name": "",
                     "id": "9e370380-6091-4838-9fe3-052e065e8455",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "Tap",
+                    "interactions": "Tap,Hold",
                     "processors": "",
                     "groups": "",
                     "action": "Attack",
@@ -108,6 +117,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b5798c3b-91e9-4503-91d1-85d6930cedcf",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

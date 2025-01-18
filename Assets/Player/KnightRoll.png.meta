@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c8977359c4af240349818137efb567b9
+guid: 390f32adfdd954d699104d5eddc48afc
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,7 +97,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: KnightRoll_0
+      name: KnightRoll 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -111,14 +111,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3a497d7848a2640d79bb060e7a9f4823
-      internalID: -271626729
+      spriteID: c48258dbc19884e59908d4cd1b1235a0
+      internalID: 418419380
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnightRoll_1
+      name: KnightRoll 1_1
       rect:
         serializedVersion: 2
         x: 16
@@ -132,14 +132,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: db664ca4c65a9432483a52e0e0fc8c81
-      internalID: 1733887231
+      spriteID: b122aa173f3c94b5cb758fa1991ed1cf
+      internalID: 692042777
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnightRoll_2
+      name: KnightRoll 1_2
       rect:
         serializedVersion: 2
         x: 32
@@ -153,14 +153,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8efa39be0b4a9493abadc37306033d8f
-      internalID: 1570557274
+      spriteID: 6ad07ddf4287f41d095ae8e230b7a0b8
+      internalID: 134127401
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnightRoll_3
+      name: KnightRoll 1_3
       rect:
         serializedVersion: 2
         x: 48
@@ -174,14 +174,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c69a967f7f0cf460ca2506fba9599afd
-      internalID: -2001082659
+      spriteID: 48541e5df92f64d8fb316d0b1a003dce
+      internalID: 582141553
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnightRoll_4
+      name: KnightRoll 1_4
       rect:
         serializedVersion: 2
         x: 0
@@ -195,14 +195,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 42d12daaf60444b2fb7697f4e089ca8f
-      internalID: 1642740046
+      spriteID: bc8a1c1350eed4624b5ee9f6463ad8e8
+      internalID: 291728922
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnightRoll_5
+      name: KnightRoll 1_5
       rect:
         serializedVersion: 2
         x: 16
@@ -216,14 +216,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fe415ae26c974431c98b7f410efa76d2
-      internalID: -1507543431
+      spriteID: f5cbf8fbecfbd4b7c83181054a24c7cb
+      internalID: 22296917
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnightRoll_6
+      name: KnightRoll 1_6
       rect:
         serializedVersion: 2
         x: 32
@@ -237,14 +237,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 88a30a93d3ca048618e46ce9701faf06
-      internalID: 1903861655
+      spriteID: bedfb3ed63252469fa533884474e172e
+      internalID: -1478794282
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnightRoll_7
+      name: KnightRoll 1_7
       rect:
         serializedVersion: 2
         x: 48
@@ -258,8 +258,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ecf3fc268caf74531a31effc735e9d78
-      internalID: 1031890668
+      spriteID: b5c0ced44338f4dce821014142f2a9c4
+      internalID: -1896702455
       vertices: []
       indices: 
       edges: []
@@ -275,14 +275,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      KnightRoll_0: -271626729
-      KnightRoll_1: 1733887231
-      KnightRoll_2: 1570557274
-      KnightRoll_3: -2001082659
-      KnightRoll_4: 1642740046
-      KnightRoll_5: -1507543431
-      KnightRoll_6: 1903861655
-      KnightRoll_7: 1031890668
+      KnightRoll 1_0: 418419380
+      KnightRoll 1_1: 692042777
+      KnightRoll 1_2: 134127401
+      KnightRoll 1_3: 582141553
+      KnightRoll 1_4: 291728922
+      KnightRoll 1_5: 22296917
+      KnightRoll 1_6: -1478794282
+      KnightRoll 1_7: -1896702455
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

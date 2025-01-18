@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: afd16a4a5f306457ea8fd07a5a862d1c
+guid: bcf97b1ffe61f46808d3d6c763593bca
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -111,8 +111,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 68a660dc651aa4480b59872abeaa5750
-      internalID: 1548961923
+      spriteID: ee794fe145fe14ac0b76151fdef365c6
+      internalID: 837698319
       vertices: []
       indices: 
       edges: []
@@ -132,14 +132,56 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 598d03878cdeb47369fca76897e0f50e
-      internalID: -300441586
+      spriteID: b54de5319ca2e453cb66abcd890019df
+      internalID: -1268640926
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
       name: KnightWalk_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cab37ba1a017944f5af1ee8026a2de28
+      internalID: 64951101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KnightWalk_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56f239483283945fbb3a536fb8fea47f
+      internalID: -2054774362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KnightWalk_4
       rect:
         serializedVersion: 2
         x: 0
@@ -153,14 +195,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 28811d3e8363843a19257a911b6dfe74
-      internalID: -1424630882
+      spriteID: 9535b704a07f1424ba26c2a3b615b6f1
+      internalID: 462349219
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnightWalk_3
+      name: KnightWalk_5
       rect:
         serializedVersion: 2
         x: 16
@@ -174,8 +216,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d96c5f0b0bd344030b598314de039853
-      internalID: -2052336340
+      spriteID: f085059a16b0b46ec8a739d1095adb7c
+      internalID: -1852893138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KnightWalk_6
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b594d70f8f88b4f65946f570628deb77
+      internalID: -1451085328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KnightWalk_7
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b3e5909f28094da6aba917fb163cd26
+      internalID: 1155879431
       vertices: []
       indices: 
       edges: []
@@ -191,10 +275,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      KnightWalk_0: 1548961923
-      KnightWalk_1: -300441586
-      KnightWalk_2: -1424630882
-      KnightWalk_3: -2052336340
+      KnightWalk_0: 837698319
+      KnightWalk_1: -1268640926
+      KnightWalk_2: 64951101
+      KnightWalk_3: -2054774362
+      KnightWalk_4: 462349219
+      KnightWalk_5: -1852893138
+      KnightWalk_6: -1451085328
+      KnightWalk_7: 1155879431
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
