@@ -7,26 +7,33 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 public class PulseAttack : EnemyAttack
 {
     private LineRenderer lineRenderer;
-    public Sprite IndicationSprite;
+    private Animator animator;
+    private Animator pulseAnimator;
+
     public override IEnumerator Attack(Goober goober)
     {
-        lineRenderer = goober.GetComponent<LineRenderer>();
+        //GETTING COMPONENTS
+        animator = goober.GetComponent<Animator>();
+        pulseAnimator = goober.attackIndicator.GetComponent<Animator>();
+        pulseAnimator.enabled = true;
+
         //SETUP
         goober.canAttack = false;
         goober.agent.speed = 0f;
-        goober.agent.SetDestination(goober.transform.position);
+        goober._navMeshAgent.enabled = false;
 
         goober.attackIndicator.enabled = true;
+        animator.SetTrigger("Warn");
+        pulseAnimator.SetTrigger("Indicate");
+        recievedKnockback *= 0.5f;
 
         yield return new WaitForSeconds(attackIndicatorTime);
 
         //ATTACK
-        goober.attackIndicator.enabled = false;
-        lineRenderer.enabled = true;
+        animator.SetTrigger("Attack");
+        pulseAnimator.SetTrigger("Expand");
 
         goober.directionToPlayer = ((Vector2)goober.player.position - (Vector2)goober.transform.position).normalized;
-        //attackDirection = directionToPlayer + pm.movement * 0.75f; //adjusts to where player will be rather than just where they are
-        lineRenderer.SetPosition(1, goober.directionToPlayer * attackingRadius);
 
         Collider2D selfCollider = goober.gameObject.GetComponent<Collider2D>();
         selfCollider.enabled = false;
@@ -35,18 +42,27 @@ public class PulseAttack : EnemyAttack
 
         Debug.DrawRay(goober.transform.position, goober.directionToPlayer * attackingRadius, Color.white, 1f);
         selfCollider.enabled = true;
-
+        Debug.Log("attacked");
         if (hit.collider != null && hit.collider.CompareTag("Player") && !goober.pm.isRolling)
         {
             goober.playerHealth.health -= attackDamage;
             goober.pm.canMove = false;
             goober.playerRb.AddForce(goober.directionToPlayer * 3000, ForceMode2D.Force);
         }
+        else if (hit.collider != null && !hit.collider.CompareTag("Player"))
+        {
+            Debug.Log(hit.collider.name);
+        }
+        recievedKnockback *= 2f;
         yield return new WaitForSeconds(0.2f);
+        goober.attackIndicator.enabled = false;
+        pulseAnimator.SetTrigger("Indicate");
+        pulseAnimator.enabled = false;
         goober.pm.canMove = true;
-        lineRenderer.enabled = false;
         yield return new WaitForSeconds(0.3f);
+        animator.SetTrigger("Idle");
         goober.state = 1;
+        goober._navMeshAgent.enabled = true;
         yield return new WaitForSeconds(attackCooldown);
         goober.canAttack = true;
     }

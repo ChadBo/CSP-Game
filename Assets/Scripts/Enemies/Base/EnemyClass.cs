@@ -16,20 +16,6 @@ public class EnemyClass : MonoBehaviour
 
     [Header("Player Seen")]
     public bool playerSeen = false;
-    public float attackingRadius;
     public float chaseDistance;
     public float chaseSpeed;
-
-    private void Update()
-    {
-        Die();
-    }
-
-    private void Die()
-    {
-        if(life <= 0)
-        {
-            Destroy(gameObject);
-        }
-    }
 }

@@ -12,6 +12,7 @@ public class Goober : EnemyClass
     [HideInInspector] public PlayerMovement pm;
     [HideInInspector] public Rigidbody2D playerRb;
     [HideInInspector] public PlayerHealthManager playerHealth;
+    [HideInInspector] public NavMeshAgent _navMeshAgent;
 
     [HideInInspector] public Vector2 directionToPlayer;
     [HideInInspector] public Vector2 attackDirection;
@@ -22,6 +23,7 @@ public class Goober : EnemyClass
     public bool pause = false;
     public float maxWanderTime = 6f;
     public float curWanderTime;
+    
 
     [Header("Attacking")]
     public EnemyAttack attackBehavior;
@@ -41,6 +43,7 @@ public class Goober : EnemyClass
         pm = player.gameObject.GetComponent<PlayerMovement>();
         playerRb = player.gameObject.GetComponent<Rigidbody2D>();
         playerHealth = player.gameObject.GetComponent<PlayerHealthManager>();
+        _navMeshAgent = GetComponent<NavMeshAgent>();
 
         wall = GameObject.FindWithTag("Wall").GetComponent<Tilemap>();
     }

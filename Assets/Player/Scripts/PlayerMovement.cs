@@ -17,6 +17,9 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 movement;
     public Vector2 facing = new Vector2(0, -1);
     public bool canFlip = true;
+    private float sprintInput;
+    public bool isSprinting;
+    public ParticleSystem SprintPS;
     [Header("Components")]
     private Rigidbody2D rb;
     public GameObject playerSprite;
@@ -44,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //RollInput value
         rollInput = InputManager.Roll;
+        sprintInput = InputManager.Sprint;
         //move
         UpdatePlayerFacing();
         if (canMove)
@@ -51,6 +55,11 @@ public class PlayerMovement : MonoBehaviour
             movePlayer();
         }
         flip();
+        if(isSprinting)
+        {
+            CheckToSprint();
+        }
+        //
         Debug.DrawRay(transform.position, movement * rollCheckDistance, Color.white);
     }
 
@@ -98,6 +107,20 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private bool checkIfCanRoll()
+    {
+        if (!canRoll && canMove || movement == Vector2.zero) { return false; }
+        RaycastHit2D wall;
+        int wallLayerMask = 1 << 7; // Create a LayerMask for layer 7
+        wall = Physics2D.Raycast(transform.position, movement, rollCheckDistance, wallLayerMask);
+        if (wall.collider != null)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     private IEnumerator roll()
     {
         isRolling = true;
@@ -134,21 +157,27 @@ public class PlayerMovement : MonoBehaviour
 
         PlayerAttack.canAttack = true;
         isRolling = false;
-        yield return new WaitForSeconds(0.25f);
+        Invoke("CheckToSprint", 0.3f);
+        yield return new WaitForSeconds(0.5f);
         canRoll = true;
     }
 
-    private bool checkIfCanRoll()
+    private void CheckToSprint()
     {
-        if (!canRoll && canMove || movement == Vector2.zero) { return false; }
-        RaycastHit2D wall;
-        int wallLayerMask = 1 << 7; // Create a LayerMask for layer 7
-        wall = Physics2D.Raycast(transform.position, movement, rollCheckDistance, wallLayerMask);
-        if (wall.collider != null)
+        if(sprintInput == 1)
         {
-            return false;
+            moveSpeed = sprintSpeed;
+            isSprinting = true;
+            if(!SprintPS.isPlaying)
+            {
+                SprintPS.Play();
+            }
         }
-
-        return true;
+        else
+        {
+            moveSpeed = walkSpeed;
+            isSprinting = false;
+            SprintPS.Stop();
+        }
     }
 }

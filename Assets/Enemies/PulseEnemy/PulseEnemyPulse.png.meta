@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 26bbbf1eb7d4c4ff980c75a439ed06fe
+guid: 9fef06bff845a4db284a52fa0a830cc4
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SweeperEnemy_0
+      name: PulseEnemyPulse_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 44
         y: 0
-        width: 14
-        height: 16
+        width: 44
+        height: 44
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: af8a70355e8c740f4b65dc33a4058c27
-      internalID: -1015561703
+      spriteID: 44c4d05fa5ee94546899d50fc9e1b779
+      internalID: -90244340
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SweeperEnemy_1
+      name: PulseEnemyPulse_1
       rect:
         serializedVersion: 2
-        x: 14
+        x: 88
         y: 0
-        width: 14
-        height: 16
+        width: 44
+        height: 44
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,8 +132,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5c62513d16acd4c1e989d015ac84953d
-      internalID: -1657182932
+      spriteID: b4521f55112f74e0e916c9b8b49e52ff
+      internalID: -944605133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PulseEnemyPulse_2
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 0
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8730722ff99f044f0ae528662bb20f59
+      internalID: 659872653
       vertices: []
       indices: 
       edges: []
@@ -149,8 +170,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      SweeperEnemy_0: -1015561703
-      SweeperEnemy_1: -1657182932
+      PulseEnemyPulse_0: -90244340
+      PulseEnemyPulse_1: -944605133
+      PulseEnemyPulse_2: 659872653
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

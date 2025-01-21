@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b63d26605de2454a90cce5d44316e8d, type: 3}
   m_Name: PulseAttackObj
   m_EditorClassIdentifier: 
-  attackingRadius: 2
+  attackingRadius: 1.5
   attackDamage: 15
   attackIndicatorTime: 0.4
-  attackCooldown: 0.4
-  recievedKnockback: 30
-  IndicationSprite: {fileID: -1657182932, guid: 26bbbf1eb7d4c4ff980c75a439ed06fe, type: 3}
+  attackCooldown: 1
+  recievedKnockback: 25

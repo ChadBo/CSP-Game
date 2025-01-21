@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6707efeea82c642e2a0b8a73738e5814
+guid: 7af7cca8f3a1747a18da707bcda284a0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SweeperEnemyPulse_0
+      name: HealthBar_0
       rect:
         serializedVersion: 2
-        x: 48
-        y: 0
-        width: 48
-        height: 48
+        x: 0
+        y: 16
+        width: 64
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9d9c7c1cab2ff4001ba5c6f3df079fc4
-      internalID: 1956950503
+      spriteID: 22eb5f291fc534f309d762d9d33de8a0
+      internalID: -245112850
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SweeperEnemyPulse_1
+      name: HealthBar_1
       rect:
         serializedVersion: 2
-        x: 96
+        x: 0
         y: 0
-        width: 48
-        height: 48
+        width: 64
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,29 +132,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 67262a423d29b491485f8f995d967fef
-      internalID: 216764604
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SweeperEnemyPulse_2
-      rect:
-        serializedVersion: 2
-        x: 144
-        y: 0
-        width: 48
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 416fcc364b9ff40baa70b5d16929501f
-      internalID: -676970492
+      spriteID: f3f9edb6812d148ed841e5216dfd3e6c
+      internalID: 1656806892
       vertices: []
       indices: 
       edges: []
@@ -170,9 +149,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      SweeperEnemyPulse_0: 1956950503
-      SweeperEnemyPulse_1: 216764604
-      SweeperEnemyPulse_2: -676970492
+      HealthBar_0: -245112850
+      HealthBar_1: 1656806892
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
