@@ -12,7 +12,7 @@ public class PlayerAttacking : MonoBehaviour
     private SpriteRenderer playerSR;
     private float attackInput;
 
-    [HideInInspector] public bool canAttack = true;
+    public bool canAttack = true;
     [Header("Combo")]
     public int currentAttack = 0;
     public UnityEvent[] SwordAttacks;
@@ -37,11 +37,20 @@ public class PlayerAttacking : MonoBehaviour
     [Header("Weapon")]
     public GameObject weapon;
     public GameObject weaponHolder;
-    private SpriteRenderer weaponSR;
+    public SpriteRenderer pointer;
+    [HideInInspector] public SpriteRenderer weaponSR;
     private Transform slashTransform;
     private SpriteRenderer slashSR;
     public Sprite[] slashSprites;
     public Transform[] SlashOrientations;
+
+    [Header("Cloak")]
+    public Sprite[] cloakSprites;
+    public SpriteRenderer cloakSprite;
+    public Animator cloakAnimator;
+
+    private SwordKeyHandler currSwordKeyHandler;
+    public bool shouldUpdateSwordLayer;
 
     // Start is called before the first frame update
     void Awake()
@@ -100,7 +109,6 @@ public class PlayerAttacking : MonoBehaviour
         {
             currentAttack = 0;
         }
-
         if (attackInput == 1 && canAttack)
         {
             Swing();
@@ -143,11 +151,14 @@ public class PlayerAttacking : MonoBehaviour
         attackDirection = (mousePos - (Vector2)gameObject.transform.position).normalized;
         animator.SetFloat("AimHorizontal", attackDirection.x);
         animator.SetFloat("AimVertical", attackDirection.y);
+        cloakAnimator.SetFloat("AimX", attackDirection.x);
+        cloakAnimator.SetFloat("AimY", attackDirection.y);
         animator.SetBool("Slash", true);
+        cloakSprite.enabled = true;
         if(playerSR.flipX == true)
         {
             pm.canFlip = false;
-            playerSR.flipX = false;
+            playerSR.flipX = false; //TODO MIGHT BE CAUSE OF POTENTIAL MIRROR BAD STUFF WIHT NEW ART
         }
 
         //Which attack?
@@ -158,13 +169,7 @@ public class PlayerAttacking : MonoBehaviour
     //The feel & rotations & sprites of swing 1
     private IEnumerator Swing1()
     {
-        canAttack = false;
-        pm.canMove = false;
-        weaponSR.enabled = true;
-        //
-        slashSR.enabled = true;
-        slashTransform.position = SlashOrientations[0].position;
-        slashTransform.rotation = SlashOrientations[0].rotation;
+        SetupSwing(0);
         //
         weapon.transform.localRotation = Quaternion.Euler(0, 0, -45f);
         rb.velocity = Vector2.zero;
@@ -172,23 +177,14 @@ public class PlayerAttacking : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         animator.SetBool("Slash", false);
         slashSR.enabled = false;
+        cloakSprite.enabled = false;
         yield return new WaitForSeconds(0.1f);
-        weapon.transform.localRotation = Quaternion.identity;
-        weaponSR.enabled = false;
-        pm.canMove = true;
-        canAttack = true;
-        pm.canFlip = true;
+        ResetSwingVariables();
     }
     private IEnumerator Swing2()
     {
-        canAttack = false;
-        pm.canMove = false;
-        weaponSR.enabled = true;
-        //
-        slashSR.enabled = true;
+        SetupSwing(1);
         slashSR.flipY = true;
-        slashTransform.position = SlashOrientations[1].position;
-        slashTransform.rotation = SlashOrientations[1].rotation;
         //
         weapon.transform.localRotation = Quaternion.Euler(0, 0, 45f);
         rb.velocity = Vector2.zero;
@@ -198,27 +194,39 @@ public class PlayerAttacking : MonoBehaviour
         //
         slashSR.enabled = false;
         slashSR.flipY = false;
+        cloakSprite.enabled = false;
         //
         yield return new WaitForSeconds(0.1f);
-        weapon.transform.localRotation = Quaternion.identity;
-        weaponSR.enabled = false;
-        pm.canMove = true;
-        canAttack = true;
-        pm.canFlip = true;
+        ResetSwingVariables();
     }
-    private IEnumerator Stab()
+    private void SetupSwing(int swingIndex)
     {
-        print(currentAttack);
         canAttack = false;
         pm.canMove = false;
         weaponSR.enabled = true;
+        //
+        slashSR.enabled = true;
+        pointer.enabled = false;
+        slashTransform.position = SlashOrientations[swingIndex].position;
+        slashTransform.rotation = SlashOrientations[swingIndex].rotation;
+        flipAttackingLegs();
+    }
+    private void ResetSwingVariables()
+    {
+        pm.canMove = true;
+        canAttack = true;
+        pm.canFlip = true;
+        weaponSR.enabled = false;
+        weapon.transform.localRotation = Quaternion.identity;
+        pointer.enabled = true;
+    }
+
+    private IEnumerator Stab()
+    {
+        SetupSwing(2);
         attackDistance += 0.5f;
         attackRangeAngle *= 0.25f;
-        //
         slashSR.sprite = slashSprites[1];
-        slashTransform.position = SlashOrientations[2].position;
-        slashTransform.rotation = SlashOrientations[2].rotation;
-        slashSR.enabled = true;
         //
         weapon.transform.localRotation = Quaternion.identity;
         rb.velocity = Vector2.zero;
@@ -228,19 +236,18 @@ public class PlayerAttacking : MonoBehaviour
         //
         slashSR.enabled = false;
         slashSR.sprite = slashSprites[0];
+        cloakSprite.enabled = false;
         //
         yield return new WaitForSeconds(0.1f);
-        weapon.transform.localRotation = Quaternion.identity;
-        weaponSR.enabled = false;
-        pm.canMove = true;
+        ResetSwingVariables();
         //
         attackRangeAngle *= 4f;
         attackDistance -= 0.5f;
         yield return new WaitForSeconds(0.5f);
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         attackDirection = (mousePos - (Vector2)weaponHolder.transform.position).normalized;
-        canAttack = true;
-        pm.canFlip = true;
+        
+        
         weaponFaceCursor();
     }
     private IEnumerator HoldStab()
@@ -260,28 +267,37 @@ public class PlayerAttacking : MonoBehaviour
         //
         weapon.transform.localRotation = Quaternion.identity;
         rb.velocity = Vector2.zero;
-        rb.AddForce(attackDirection * thrustForce * 5, ForceMode2D.Impulse);
+        rb.AddForce(attackDirection * thrustForce * 7, ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.3f);
         animator.SetBool("Slash", false);
         //
         slashSR.enabled = false;
         slashSR.sprite = slashSprites[0];
         //
-        yield return new WaitForSeconds(0.1f);
-        weapon.transform.localRotation = Quaternion.identity;
-        weaponSR.enabled = false;
-        pm.canMove = true;
-        pm.moveSpeed = pm.walkSpeed;
-        pm.canRoll = true;
-        //
-        attackRangeAngle *= 4f;
-        attackDistance -= 0.5f;
-        yield return new WaitForSeconds(0.5f);
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        attackDirection = (mousePos - (Vector2)weaponHolder.transform.position).normalized;
-        canAttack = true;
-        pm.canFlip = true;
-        weaponFaceCursor();
+        if (KeyHoleCheck(attackDirection) == false)
+        {
+            //resetting values
+            yield return new WaitForSeconds(0.1f);
+            weapon.transform.localRotation = Quaternion.identity;
+            weaponSR.enabled = false;
+            cloakSprite.enabled = false;
+            pm.canMove = true;
+            pm.moveSpeed = pm.walkSpeed;
+            pm.canRoll = true;
+            //
+            attackRangeAngle *= 4f;
+            attackDistance -= 0.5f;
+            yield return new WaitForSeconds(0.5f);
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            attackDirection = (mousePos - (Vector2)weaponHolder.transform.position).normalized;
+            canAttack = true;
+            pm.canFlip = true;
+            weaponFaceCursor();
+        }
+        else
+        {
+            StartCoroutine(OnEnterKeyHole());
+        }
         InputManager.IsTapAttack = true;
     }
 
@@ -291,6 +307,7 @@ public class PlayerAttacking : MonoBehaviour
         pm.moveSpeed = holdAttackMoveSpeed;
         pm.canRoll = false;
         pm.canFlip = false;
+        pointer.enabled = false;
         weaponSR.enabled = true;
         isHolding = true;
         weaponSR.sortingOrder = playerSR.sortingOrder - 1;
@@ -302,17 +319,26 @@ public class PlayerAttacking : MonoBehaviour
         attackDirection = (mousePos - (Vector2)gameObject.transform.position).normalized;
         animator.SetFloat("AimHorizontal", attackDirection.x);
         animator.SetFloat("AimVertical", attackDirection.y);
+        cloakAnimator.SetFloat("AimX", attackDirection.x);
+        cloakAnimator.SetFloat("AimY", attackDirection.y);
+        flipAttackingLegs();
         //
         if (attackInput == 0)
         {
             isHolding = false;
             StartCoroutine(HoldStab());
-            //hit any enemies?
             currentAttack = 3;
             attackCheck(attackDirection);
             currentAttack = 0;
         }
-        //
+    }
+
+    private void flipAttackingLegs()
+    {
+        if(attackDirection.x > 0 && attackDirection.x > Mathf.Abs(attackDirection.y))
+        {
+            playerSR.flipX = true;
+        }
     }
 
     private void weaponFaceCursor()
@@ -335,32 +361,76 @@ public class PlayerAttacking : MonoBehaviour
         {
             if (hit.CompareTag("Enemy"))
             {
-                Rigidbody2D enemyRb = hit.GetComponent<Rigidbody2D>();
-                Goober gooberScript = hit.GetComponent<Goober>();
-
                 Vector2 toTarget = (hit.transform.position - transform.position).normalized;
                 float angle = Vector2.Angle(attackDir, toTarget);
-
                 if (angle <= attackRangeAngle) //If it hits an enemy in a slash range
                 {
+                    Rigidbody2D enemyRb = hit.GetComponent<Rigidbody2D>();
+                    Goober gooberScript = hit.GetComponent<Goober>();
                     EnemyHit(attackDir, enemyRb, gooberScript);
                 }
             }
         }
     }
 
+    private bool KeyHoleCheck(Vector2 attackDir)
+    {
+        gameObject.GetComponent<Collider2D>().enabled = false;
+        RaycastHit2D keyHit = Physics2D.Raycast(transform.position, attackDir, attackDistance, 9);
+        gameObject.GetComponent<Collider2D>().enabled = true;
+
+        if (keyHit.collider != null && keyHit.collider.CompareTag("KeyHole"))
+        {
+            currSwordKeyHandler = keyHit.collider.GetComponent<SwordKeyHandler>();
+            print("KEY");
+            return true;
+        }
+        return false;
+    }
+
+    private IEnumerator OnEnterKeyHole() {
+        pm.canMove = false;
+        canAttack = false;
+        rb.velocity = new Vector2(0, 0);
+        shouldUpdateSwordLayer = false;
+        weaponSR.sortingOrder = playerSR.sortingOrder - 1;
+        gameObject.transform.position = new Vector2(currSwordKeyHandler.transform.position.x, currSwordKeyHandler.transform.position.y - 0.5f);
+        weaponHolder.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+
+        currSwordKeyHandler.ShowTopPillarOnTopOfSword(true);
+
+        yield return new WaitForSeconds(3f);
+        //
+        currSwordKeyHandler.ShowTopPillarOnTopOfSword(false);
+
+        weapon.transform.localRotation = Quaternion.identity;
+        weaponSR.enabled = false;
+        pm.canMove = true;
+        pm.moveSpeed = pm.walkSpeed;
+        pm.canRoll = true;
+        //
+        attackRangeAngle *= 4f;
+        attackDistance -= 0.5f;
+        yield return new WaitForSeconds(0.5f);
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        attackDirection = (mousePos - (Vector2)weaponHolder.transform.position).normalized;
+        canAttack = true;
+        pm.canFlip = true;
+        weaponFaceCursor();
+    }
+
     private void EnemyHit(Vector2 attackDir, Rigidbody2D enemyRb, Goober gooberScript)
     {
-        if (gooberScript.attackBehavior.recievedKnockback > 0)
+        if (gooberScript.localKnockback > 0)
         {
             if (currentAttack != 2)
             {
-                enemyRb.AddForce(attackDir * gooberScript.attackBehavior.recievedKnockback * 100, ForceMode2D.Impulse);
+                enemyRb.AddForce(attackDir * gooberScript.localKnockback * 100, ForceMode2D.Impulse);
                 gooberScript.life -= slashDamage;
             }
             else
             {
-                enemyRb.AddForce(attackDir * gooberScript.attackBehavior.recievedKnockback * 200, ForceMode2D.Impulse);
+                enemyRb.AddForce(attackDir * gooberScript.localKnockback * 200, ForceMode2D.Impulse);
                 gooberScript.life -= stabDamage;
             }
         }
@@ -368,11 +438,11 @@ public class PlayerAttacking : MonoBehaviour
         {
             if (currentAttack != 3)
             {
-                rb.AddForce(attackDir * gooberScript.attackBehavior.recievedKnockback * 10, ForceMode2D.Impulse);
+                rb.AddForce(attackDir * gooberScript.localKnockback * 10, ForceMode2D.Impulse);
             }
             else
             {
-                rb.AddForce(attackDir * gooberScript.attackBehavior.recievedKnockback * 20, ForceMode2D.Impulse);
+                rb.AddForce(attackDir * gooberScript.localKnockback * 20, ForceMode2D.Impulse);
             }
         }
     }
@@ -390,17 +460,19 @@ public class PlayerAttacking : MonoBehaviour
 
     private void swordLayerUpdate()
     {
+        if(!shouldUpdateSwordLayer) { return; }
+
         if(attackDirection.y > 0 && attackDirection.x > 0)
         {
-            weapon.gameObject.GetComponent<SpriteRenderer>().sortingOrder = playerSR.sortingOrder - 1;
+            weaponSR.sortingOrder = playerSR.sortingOrder - 1;
         }
         else if (attackDirection.y > 0 && attackDirection.x < 0)
         {
-            weapon.gameObject.GetComponent<SpriteRenderer>().sortingOrder = playerSR.sortingOrder + 1;
+            weaponSR.sortingOrder = playerSR.sortingOrder - 1;
         }
         else
         {
-            weapon.gameObject.GetComponent<SpriteRenderer>().sortingOrder = playerSR.sortingOrder + 1;
+            weaponSR.sortingOrder = playerSR.sortingOrder + 1;
         }
     }
 }

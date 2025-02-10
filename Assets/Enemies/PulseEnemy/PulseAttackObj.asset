@@ -12,8 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b63d26605de2454a90cce5d44316e8d, type: 3}
   m_Name: PulseAttackObj
   m_EditorClassIdentifier: 
-  attackingRadius: 1.5
-  attackDamage: 15
-  attackIndicatorTime: 0.4
+  attackingRadius: 1.6
+  attackDamage: 30
+  attackIndicatorTime: 0.75
   attackCooldown: 1
-  recievedKnockback: 25
+  recievedKnockback: 35
+  pulseSprites:
+  - {fileID: -90244340, guid: 9fef06bff845a4db284a52fa0a830cc4, type: 3}
+  - {fileID: -944605133, guid: 9fef06bff845a4db284a52fa0a830cc4, type: 3}
+  - {fileID: 659872653, guid: 9fef06bff845a4db284a52fa0a830cc4, type: 3}
+  bodySprites:
+  - {fileID: -1879396142, guid: d17f10046b4d14029abb38a335d2a194, type: 3}
+  - {fileID: 1366561913, guid: d17f10046b4d14029abb38a335d2a194, type: 3}
+  - {fileID: 1551703335, guid: d17f10046b4d14029abb38a335d2a194, type: 3}
+  - {fileID: -104640485, guid: d17f10046b4d14029abb38a335d2a194, type: 3}

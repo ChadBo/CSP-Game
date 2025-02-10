@@ -34,6 +34,10 @@ public class PlayerMovement : MonoBehaviour
     public bool isRolling = false;
     public bool canRoll = true;
     public float rollCheckDistance;
+    [Header("Outside adjustments")]
+    public float addedMoveX;
+    public float addedMoveY;
+    
 
     private void Awake()
     {
@@ -65,9 +69,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void movePlayer()
     {
-        if (updateMovement && !isRolling)
+        if(updateMovement && !isRolling) //TODO BROKEN FIX TS
         {
-            movement.Set(InputManager.Movement.x, InputManager.Movement.y);
+            movement.Set(InputManager.Movement.x + addedMoveX, InputManager.Movement.y + addedMoveY);
         }
         if (rollInput == 1 && checkIfCanRoll())
         {
@@ -129,6 +133,9 @@ public class PlayerMovement : MonoBehaviour
         moveSpeed = rollSpeed;
         float rbDrag = rb.drag;
         rb.drag = 0f;
+
+        playerSprite.transform.localPosition = new Vector3(0, 0f, 0);
+        ShadowSr.transform.localPosition = new Vector3(0, 0, 0);
         //
         if((movement.x < 0 && movement.y > 0) || (movement.x > 0 && movement.y < 0))
         {
@@ -157,6 +164,8 @@ public class PlayerMovement : MonoBehaviour
 
         PlayerAttack.canAttack = true;
         isRolling = false;
+        playerSprite.transform.localPosition = new Vector3(0, 0.36f, 0);
+        ShadowSr.transform.localPosition = new Vector3(0.46f, 0.33f, 0);
         Invoke("CheckToSprint", 0.3f);
         yield return new WaitForSeconds(0.5f);
         canRoll = true;

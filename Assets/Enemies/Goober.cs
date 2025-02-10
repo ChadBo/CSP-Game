@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Tilemaps;
+using UnityEngine.Rendering.Universal;
 
 public class Goober : EnemyClass
 {
@@ -12,7 +13,8 @@ public class Goober : EnemyClass
     [HideInInspector] public PlayerMovement pm;
     [HideInInspector] public Rigidbody2D playerRb;
     [HideInInspector] public PlayerHealthManager playerHealth;
-    [HideInInspector] public NavMeshAgent _navMeshAgent;
+    [HideInInspector] public SpriteRenderer sr;
+    public Light2D IndicatorLight;
 
     [HideInInspector] public Vector2 directionToPlayer;
     [HideInInspector] public Vector2 attackDirection;
@@ -23,15 +25,15 @@ public class Goober : EnemyClass
     public bool pause = false;
     public float maxWanderTime = 6f;
     public float curWanderTime;
-    
 
     [Header("Attacking")]
     public EnemyAttack attackBehavior;
     public bool canAttack = true;
-    public SpriteRenderer attackIndicator;
+    [HideInInspector] public SpriteRenderer attackIndicator;
+    [HideInInspector] public float localKnockback;
 
     private Tilemap wall;
-    public NavMeshAgent agent;
+    [HideInInspector] public NavMeshAgent agent;
 
     private void Start()
     {
@@ -43,9 +45,12 @@ public class Goober : EnemyClass
         pm = player.gameObject.GetComponent<PlayerMovement>();
         playerRb = player.gameObject.GetComponent<Rigidbody2D>();
         playerHealth = player.gameObject.GetComponent<PlayerHealthManager>();
-        _navMeshAgent = GetComponent<NavMeshAgent>();
+        sr = GetComponent<SpriteRenderer>();
+        attackIndicator = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        print(transform.GetChild(0).name);
 
         wall = GameObject.FindWithTag("Wall").GetComponent<Tilemap>();
+        localKnockback = attackBehavior.recievedKnockback;
     }
 
     private void Update()
@@ -143,10 +148,19 @@ public class Goober : EnemyClass
     //ATTACKING
     private void checkIfCanAttack()
     {
-        if(Vector2.Distance((Vector2)transform.position, (Vector2)player.position) < attackBehavior.attackingRadius && canAttack)
+        directionToPlayer = ((Vector2)player.position - (Vector2)transform.position).normalized;
+        if (Vector2.Distance((Vector2)transform.position, (Vector2)player.position) < attackBehavior.attackingRadius && canAttack) //if within attack range;
         {
-            state = 2;
-            StartCoroutine(attackBehavior.Attack(this));
+            Collider2D selfColl = gameObject.GetComponent<Collider2D>();
+            selfColl.enabled = false;
+            RaycastHit2D toPlayer = Physics2D.Raycast(transform.position, directionToPlayer);
+            selfColl.enabled = true;
+            if(toPlayer.collider != null && toPlayer.collider.CompareTag("Player"))
+            {
+                //Debug.DrawRay(transform.position, directionToPlayer * attackBehavior.attackingRadius, Color.white, 2f);
+                state = 2;
+                StartCoroutine(attackBehavior.Attack(this));
+            }
         }
     }
 }

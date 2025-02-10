@@ -6,7 +6,8 @@ public class StairSpeedModifyer : MonoBehaviour
 {
     private PlayerMovement pm;
     private Rigidbody2D rb;
-    public float diagonalSpeedMult;
+    public float stairSpeed;
+    public bool stairsGoRight;
 
     void Start()
     {
@@ -18,19 +19,22 @@ public class StairSpeedModifyer : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            if ((pm.movement.x != 0 && pm.movement.y == 0) || (pm.movement.x == 0 && pm.movement.y != 0))
+            pm.moveSpeed = stairSpeed;
+            if ((pm.movement.x > 0 && stairsGoRight) || (pm.movement.x < 0 && !stairsGoRight))
             {
-                pm.moveSpeed = diagonalSpeedMult * pm.walkSpeed;
+                pm.addedMoveY = 1f;
             }
-            else
+            else if ((pm.movement.x < 0 && stairsGoRight) || (pm.movement.x > 0 && !stairsGoRight))
             {
-                pm.moveSpeed = pm.walkSpeed;
+                pm.addedMoveY = -1f;
             }
+            else { pm.addedMoveY = 0; }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        pm.addedMoveY = 0;
         pm.moveSpeed = pm.walkSpeed;
     }
 }
