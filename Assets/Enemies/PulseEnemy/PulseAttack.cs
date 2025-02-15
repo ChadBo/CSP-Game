@@ -41,6 +41,7 @@ public class PulseAttack : EnemyAttack
         selfCollider.enabled = true;
         if (hit.collider != null && hit.collider.CompareTag("Player") && !goober.pm.isRolling)
         {
+            ScreenShakeController.instance.StartShake(0.5f, 3f);
             goober.playerHealth.health -= attackDamage;
             goober.pm.canMove = false;
             goober.playerRb.AddForce(goober.directionToPlayer * 3000, ForceMode2D.Force);

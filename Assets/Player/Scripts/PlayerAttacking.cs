@@ -44,10 +44,6 @@ public class PlayerAttacking : MonoBehaviour
     public Sprite[] slashSprites;
     public Transform[] SlashOrientations;
 
-    [Header("Cloak")]
-    public Sprite[] cloakSprites;
-    public SpriteRenderer cloakSprite;
-    public Animator cloakAnimator;
 
     private SwordKeyHandler currSwordKeyHandler;
     public bool shouldUpdateSwordLayer;
@@ -151,10 +147,7 @@ public class PlayerAttacking : MonoBehaviour
         attackDirection = (mousePos - (Vector2)gameObject.transform.position).normalized;
         animator.SetFloat("AimHorizontal", attackDirection.x);
         animator.SetFloat("AimVertical", attackDirection.y);
-        cloakAnimator.SetFloat("AimX", attackDirection.x);
-        cloakAnimator.SetFloat("AimY", attackDirection.y);
         animator.SetBool("Slash", true);
-        cloakSprite.enabled = true;
         if(playerSR.flipX == true)
         {
             pm.canFlip = false;
@@ -177,7 +170,6 @@ public class PlayerAttacking : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         animator.SetBool("Slash", false);
         slashSR.enabled = false;
-        cloakSprite.enabled = false;
         yield return new WaitForSeconds(0.1f);
         ResetSwingVariables();
     }
@@ -194,7 +186,6 @@ public class PlayerAttacking : MonoBehaviour
         //
         slashSR.enabled = false;
         slashSR.flipY = false;
-        cloakSprite.enabled = false;
         //
         yield return new WaitForSeconds(0.1f);
         ResetSwingVariables();
@@ -236,7 +227,6 @@ public class PlayerAttacking : MonoBehaviour
         //
         slashSR.enabled = false;
         slashSR.sprite = slashSprites[0];
-        cloakSprite.enabled = false;
         //
         yield return new WaitForSeconds(0.1f);
         ResetSwingVariables();
@@ -280,7 +270,6 @@ public class PlayerAttacking : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
             weapon.transform.localRotation = Quaternion.identity;
             weaponSR.enabled = false;
-            cloakSprite.enabled = false;
             pm.canMove = true;
             pm.moveSpeed = pm.walkSpeed;
             pm.canRoll = true;
@@ -319,8 +308,6 @@ public class PlayerAttacking : MonoBehaviour
         attackDirection = (mousePos - (Vector2)gameObject.transform.position).normalized;
         animator.SetFloat("AimHorizontal", attackDirection.x);
         animator.SetFloat("AimVertical", attackDirection.y);
-        cloakAnimator.SetFloat("AimX", attackDirection.x);
-        cloakAnimator.SetFloat("AimY", attackDirection.y);
         flipAttackingLegs();
         //
         if (attackInput == 0)
@@ -366,8 +353,16 @@ public class PlayerAttacking : MonoBehaviour
                 if (angle <= attackRangeAngle) //If it hits an enemy in a slash range
                 {
                     Rigidbody2D enemyRb = hit.GetComponent<Rigidbody2D>();
-                    Goober gooberScript = hit.GetComponent<Goober>();
-                    EnemyHit(attackDir, enemyRb, gooberScript);
+                    EnemyHealthManager enemyHealth = hit.GetComponent<EnemyHealthManager>();
+                    EnemyHit(attackDir, enemyRb, enemyHealth);
+                }
+            }
+            if (hit.gameObject.layer == LayerMask.NameToLayer("Dasher"))
+            {
+                if(hit.GetComponent<DashEnemyMovementBehavior>().isDashing)
+                {
+                    EnemyHealthManager enemyHealth2 = hit.GetComponent<EnemyHealthManager>();
+                    enemyHealth2.life = 0;
                 }
             }
         }
@@ -419,30 +414,31 @@ public class PlayerAttacking : MonoBehaviour
         weaponFaceCursor();
     }
 
-    private void EnemyHit(Vector2 attackDir, Rigidbody2D enemyRb, Goober gooberScript)
+    private void EnemyHit(Vector2 attackDir, Rigidbody2D enemyRb, EnemyHealthManager enemyHealth)
     {
-        if (gooberScript.localKnockback > 0)
+        ScreenShakeController.instance.StartShake(0.3f, 1f);
+        if (enemyHealth.knockback > 0)
         {
             if (currentAttack != 2)
             {
-                enemyRb.AddForce(attackDir * gooberScript.localKnockback * 100, ForceMode2D.Impulse);
-                gooberScript.life -= slashDamage;
+                enemyRb.AddForce(attackDir * enemyHealth.knockback * 100, ForceMode2D.Impulse);
+                enemyHealth.life -= slashDamage;
             }
             else
             {
-                enemyRb.AddForce(attackDir * gooberScript.localKnockback * 200, ForceMode2D.Impulse);
-                gooberScript.life -= stabDamage;
+                enemyRb.AddForce(attackDir * enemyHealth.knockback * 200, ForceMode2D.Impulse);
+                enemyHealth.life -= stabDamage;
             }
         }
         else //if they have negative knockback, they should hit enemy and fly backwards like hitting a block of stone
         {
             if (currentAttack != 3)
             {
-                rb.AddForce(attackDir * gooberScript.localKnockback * 10, ForceMode2D.Impulse);
+                rb.AddForce(attackDir * enemyHealth.knockback * 10, ForceMode2D.Impulse);
             }
             else
             {
-                rb.AddForce(attackDir * gooberScript.localKnockback * 20, ForceMode2D.Impulse);
+                rb.AddForce(attackDir * enemyHealth.knockback * 20, ForceMode2D.Impulse);
             }
         }
     }

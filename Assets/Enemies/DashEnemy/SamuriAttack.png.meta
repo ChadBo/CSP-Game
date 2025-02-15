@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 390f32adfdd954d699104d5eddc48afc
+guid: 31b12a4ba246d4654813563748b8c657
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,169 +97,148 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: KnightRoll 1_0
+      name: SamuriAttack_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 16
-        width: 16
-        height: 16
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c48258dbc19884e59908d4cd1b1235a0
-      internalID: 418419380
+      spriteID: 5b93e2928f1a74799b4c85263eb9f7f8
+      internalID: -218872321
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnightRoll 1_1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b122aa173f3c94b5cb758fa1991ed1cf
-      internalID: 692042777
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: KnightRoll 1_2
+      name: SamuriAttack_1
       rect:
         serializedVersion: 2
         x: 32
-        y: 16
-        width: 16
-        height: 16
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6ad07ddf4287f41d095ae8e230b7a0b8
-      internalID: 134127401
+      spriteID: 342d44e14183c4d9b831e5f59ce03714
+      internalID: -1552999835
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnightRoll 1_3
+      name: SamuriAttack_2
       rect:
         serializedVersion: 2
-        x: 48
-        y: 16
-        width: 16
-        height: 16
+        x: 64
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 48541e5df92f64d8fb316d0b1a003dce
-      internalID: 582141553
+      spriteID: b30938594fd2843f9814fbca0be71100
+      internalID: 1142416382
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnightRoll 1_4
+      name: SamuriAttack_3
       rect:
         serializedVersion: 2
-        x: 0
+        x: 96
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0337e3784ccce4efda54fc221bd8dd04
+      internalID: -1188693820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SamuriAttack_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f8a71e98368c45fdaba6d1f6a0bb05e
+      internalID: 640741927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SamuriAttack_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4df3053454b2a4f5c807dc53f8ca81ca
+      internalID: 1157921922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SamuriAttack_6
+      rect:
+        serializedVersion: 2
+        x: 160
         y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.31499195, y: 0.51913875}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc8a1c1350eed4624b5ee9f6463ad8e8
-      internalID: 291728922
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: KnightRoll 1_5
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f5cbf8fbecfbd4b7c83181054a24c7cb
-      internalID: 22296917
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: KnightRoll 1_6
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bedfb3ed63252469fa533884474e172e
-      internalID: -1478794282
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: KnightRoll 1_7
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b5c0ced44338f4dce821014142f2a9c4
-      internalID: -1896702455
+      spriteID: fd3c406f0805a417c8d414faa5f38769
+      internalID: -195237083
       vertices: []
       indices: 
       edges: []
@@ -275,14 +254,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      KnightRoll 1_0: 418419380
-      KnightRoll 1_1: 692042777
-      KnightRoll 1_2: 134127401
-      KnightRoll 1_3: 582141553
-      KnightRoll 1_4: 291728922
-      KnightRoll 1_5: 22296917
-      KnightRoll 1_6: -1478794282
-      KnightRoll 1_7: -1896702455
+      SamuriAttack_0: -218872321
+      SamuriAttack_1: -1552999835
+      SamuriAttack_2: 1142416382
+      SamuriAttack_3: -1188693820
+      SamuriAttack_4: 640741927
+      SamuriAttack_5: 1157921922
+      SamuriAttack_6: -195237083
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

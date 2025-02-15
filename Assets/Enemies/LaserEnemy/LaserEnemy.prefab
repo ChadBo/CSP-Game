@@ -5210,6 +5210,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4477828636842636738}
   - component: {fileID: 4895376773609173581}
+  - component: {fileID: 4042412635130624568}
   - component: {fileID: 4404151111608348638}
   - component: {fileID: 3289189882426748262}
   - component: {fileID: 2633513450513999255}
@@ -5253,7 +5254,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7042f8f81b1c4995a3fe36b9b229cb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 100
   knockback: 1
   sightRadius: 8
   wanderPosition: {x: 0, y: 0}
@@ -5279,6 +5279,20 @@ MonoBehaviour:
   attackIndicator: {fileID: 6825667948861516234}
   localKnockback: 0
   agent: {fileID: 0}
+--- !u!114 &4042412635130624568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7715514495422858696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45ec217ce4d254468aa7458b3a634019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  life: 100
+  knockback: 30
 --- !u!120 &4404151111608348638
 LineRenderer:
   serializedVersion: 2

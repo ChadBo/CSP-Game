@@ -17,8 +17,8 @@ TagManager:
   - Floor
   - Wall
   - YSorting
-  - 
-  - 
+  - Dasher
+  - TriggerColliderIgnore
   - 
   - 
   - 

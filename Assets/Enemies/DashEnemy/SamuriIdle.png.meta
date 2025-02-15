@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b7286ec0b5d3e4ddeb184135a2c644d7
+guid: e55f20eb82f5340afab0414f630de325
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,55 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: KnightStill_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f87307b6e8c3a49aabc2117e5b3d58c7
-      internalID: 770695554
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: KnightStill_1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 75d752f3f3e574a00a5f3b7239582380
-      internalID: -1256079737
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: KnightStill_2
+      name: SamuriIdle_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 16
+        width: 19
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 81e6166b68c3741e0a8a4bc2260ea1a3
-      internalID: 461864492
+      spriteID: b9234054e4d9549b484043e544923611
+      internalID: -36911935
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnightStill_3
+      name: SamuriIdle_1
       rect:
         serializedVersion: 2
-        x: 16
+        x: 19
         y: 0
-        width: 16
-        height: 16
+        width: 19
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,8 +132,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 411d77f96f53b49f6bc5108d321a78b0
-      internalID: 94525423
+      spriteID: f72ff263f94cb4588af11296832b8e5d
+      internalID: 879654140
       vertices: []
       indices: 
       edges: []
@@ -191,10 +149,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      KnightStill_0: 770695554
-      KnightStill_1: -1256079737
-      KnightStill_2: 461864492
-      KnightStill_3: 94525423
+      SamuriIdle_0: -36911935
+      SamuriIdle_1: 879654140
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3907729867776947689}
   - component: {fileID: 7687991423400947511}
+  - component: {fileID: 1885101340478307290}
   - component: {fileID: 7645339490505800533}
   - component: {fileID: 7337703525905342560}
   - component: {fileID: 7778935183820903019}
@@ -135,7 +136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7042f8f81b1c4995a3fe36b9b229cb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 150
   knockback: 1
   sightRadius: 7
   wanderPosition: {x: 0, y: 0}
@@ -161,6 +161,20 @@ MonoBehaviour:
   attackIndicator: {fileID: 6926732401169701998}
   localKnockback: 0
   agent: {fileID: 0}
+--- !u!114 &1885101340478307290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3112769308501558992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45ec217ce4d254468aa7458b3a634019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  life: 140
+  knockback: 40
 --- !u!212 &7645339490505800533
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -346,7 +360,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.262
   m_Color: {r: 0, g: 0.48795986, b: 1, a: 1}
-  m_Intensity: 0.69
+  m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000

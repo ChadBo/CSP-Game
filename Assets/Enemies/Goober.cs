@@ -30,6 +30,7 @@ public class Goober : EnemyClass
     public EnemyAttack attackBehavior;
     public bool canAttack = true;
     [HideInInspector] public SpriteRenderer attackIndicator;
+    private EnemyHealthManager healthScript;
     [HideInInspector] public float localKnockback;
 
     private Tilemap wall;
@@ -45,12 +46,12 @@ public class Goober : EnemyClass
         pm = player.gameObject.GetComponent<PlayerMovement>();
         playerRb = player.gameObject.GetComponent<Rigidbody2D>();
         playerHealth = player.gameObject.GetComponent<PlayerHealthManager>();
+        healthScript = GetComponent<EnemyHealthManager>();
         sr = GetComponent<SpriteRenderer>();
         attackIndicator = transform.GetChild(0).GetComponent<SpriteRenderer>();
-        print(transform.GetChild(0).name);
 
         wall = GameObject.FindWithTag("Wall").GetComponent<Tilemap>();
-        localKnockback = attackBehavior.recievedKnockback;
+        localKnockback = healthScript.knockback;
     }
 
     private void Update()
@@ -65,27 +66,18 @@ public class Goober : EnemyClass
             chasePlayer();
         }
         wanderCountdown();
-        Die();
-    }
-
-    private void Die()
-    {
-        if (life <= 0)
-        {
-            Destroy(gameObject);
-        }
     }
 
     //PATROLLING / WANDERING
     private void patrol()
     {
-        Collider2D circlehit = Physics2D.OverlapCircle(transform.position, sightRadius, LayerMask.GetMask("Player"));
+        Collider2D circlehit = Physics2D.OverlapCircle(transform.position, sightRadius, LayerMask.GetMask("Player")); //TODO only detect if they are within the frame and if the player 
         if (circlehit != null && circlehit.CompareTag("Player"))
         {
             target = player;
             state = 1;
             playerSeen = true;
-            Invoke("SetCanAttack", 0.75f);
+            Invoke("SetCanAttack", 0.75f); 
         }
         else
         {
@@ -117,7 +109,10 @@ public class Goober : EnemyClass
         }
 
         agent.speed = roamingSpeed;
-        agent.SetDestination(wanderPosition);
+        if (agent.enabled)
+        {
+            agent.SetDestination(wanderPosition);
+        }
 
         if (Vector3.Distance(transform.position, wanderPosition) < 0.5f)
         {
@@ -140,6 +135,7 @@ public class Goober : EnemyClass
     //CHASING
     private void chasePlayer()
     {
+        if (!agent.enabled) { return; }
         agent.SetDestination(target.position);
         agent.speed = chaseSpeed;
         checkIfCanAttack();

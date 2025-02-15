@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 691eeb29972f54562a46173d19024fd2
+guid: fa24bbfcc4f8341e1b514a57d54f2383
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: KnightAttack_0
+      name: SamuriIdle 1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 16
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,41 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 810ee3dded22f4b5083f464a40fc11b1
-      internalID: 1602276434
+      spriteID: dfd9d8afea0b0433381c558c3999fb90
+      internalID: 1413804667
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KnightAttack_1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 146d2c4767cf4430a893046bea61f4ce
-      internalID: 1001950687
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: KnightAttack_2
+      name: SamuriIdle 1_1
       rect:
         serializedVersion: 2
         x: 32
         y: 0
-        width: 16
-        height: 16
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,29 +132,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6bb0e8245393a4ab181cd30b55dbe926
-      internalID: 418103651
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: KnightAttack_3
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d4f1865482e304adf969bc22cbf95de3
-      internalID: -1613325674
+      spriteID: d30efc3b7d4a34d0c9ba481bc811cc63
+      internalID: 1991508206
       vertices: []
       indices: 
       edges: []
@@ -191,10 +149,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      KnightAttack_0: 1602276434
-      KnightAttack_1: 1001950687
-      KnightAttack_2: 418103651
-      KnightAttack_3: -1613325674
+      SamuriIdle 1_0: 1413804667
+      SamuriIdle 1_1: 1991508206
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

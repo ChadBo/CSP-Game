@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackingRadius: 1.6
   attackDamage: 30
-  attackIndicatorTime: 0.75
+  attackIndicatorTime: 1
   attackCooldown: 1
   recievedKnockback: 35
   pulseSprites:

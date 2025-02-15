@@ -5,8 +5,6 @@ using UnityEngine;
 public class EnemyClass : MonoBehaviour
 {
     [Header("Core")]
-    public float life;
-    public bool knockback;
 
     [Header("Player NOT Seen")]
     public float sightRadius;

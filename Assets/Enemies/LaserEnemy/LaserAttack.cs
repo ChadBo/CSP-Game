@@ -49,6 +49,7 @@ public class LaserAttack : EnemyAttack
         {
             if(!goober.pm.isRolling)
             {
+                ScreenShakeController.instance.StartShake(0.5f, 3f);
                 goober.playerHealth.health -= attackDamage;
                 goober.pm.canMove = false;
                 goober.playerRb.AddForce(goober.directionToPlayer * 3000, ForceMode2D.Force);
@@ -61,7 +62,7 @@ public class LaserAttack : EnemyAttack
             else
             {
                 selfCollider.enabled = false;
-                RaycastHit2D pastPlayerHit = Physics2D.Raycast(hit.point + goober.directionToPlayer * 0.1f, goober.directionToPlayer, 200, ~LayerMask.GetMask("Player"));
+                RaycastHit2D pastPlayerHit = Physics2D.Raycast(hit.point + goober.directionToPlayer * 0.1f, goober.directionToPlayer, 0, ~LayerMask.GetMask("Player"));
                 selfCollider.enabled = true;
 
                 if (pastPlayerHit.collider != null)
@@ -81,6 +82,10 @@ public class LaserAttack : EnemyAttack
                     hitPS.Play();
                 }
             }
+
+        }
+        else if(hit.collider != null && hit.collider.CompareTag("Enemy"))
+        {
 
         }
         else
