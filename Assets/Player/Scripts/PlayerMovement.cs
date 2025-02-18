@@ -23,10 +23,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Components")]
     private Rigidbody2D rb;
     public GameObject playerSprite;
-    public SpriteRenderer ShadowSr;
-    public Sprite rollShadow;
-    public Sprite standShadow;
-    private SpriteRenderer sr;
+    [HideInInspector] public SpriteRenderer sr;
     private Animator animator;
     [SerializeField] private ParticleSystem rollPS;
     [Header("Rolling")]
@@ -135,7 +132,6 @@ public class PlayerMovement : MonoBehaviour
         rb.drag = 0f;
 
         playerSprite.transform.localPosition = new Vector3(0, 0f, 0);
-        ShadowSr.transform.localPosition = new Vector3(0, 0, 0);
         //
         if((movement.x < 0 && movement.y > 0) || (movement.x > 0 && movement.y < 0))
         {
@@ -146,7 +142,6 @@ public class PlayerMovement : MonoBehaviour
             playerSprite.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -45));
         }
         animator.SetBool("Rolling", true);
-        ShadowSr.sprite = rollShadow;
         rollPS.Play();
 
         yield return new WaitForSeconds(0.4f);
@@ -160,12 +155,10 @@ public class PlayerMovement : MonoBehaviour
         rb.drag = rbDrag;
 
         animator.SetBool("Rolling", false);
-        ShadowSr.sprite = standShadow;
 
         PlayerAttack.canAttack = true;
         isRolling = false;
         playerSprite.transform.localPosition = new Vector3(0, 0.36f, 0);
-        ShadowSr.transform.localPosition = new Vector3(0.46f, 0.33f, 0);
         Invoke("CheckToSprint", 0.3f);
         yield return new WaitForSeconds(0.5f);
         canRoll = true;

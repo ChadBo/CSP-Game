@@ -18,6 +18,7 @@ public class ScreenShakeController : MonoBehaviour
     {
         if(shakeTimeRemaining > 0)
         {
+            Debug.Log("SHAKIN");
             shakeTimeRemaining -= Time.deltaTime;
 
             float xAmount = Random.Range(-1f, 1f) * (shakePower/100);

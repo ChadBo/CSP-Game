@@ -11,5 +11,11 @@ public abstract class EnemyAttack : ScriptableObject
     public float attackCooldown;
     public float recievedKnockback; //MAKE NEGATIVE TO INFLICT ON PLAYER
 
-    public abstract IEnumerator Attack(Goober goober);
+    public virtual void Attack(Goober goober)
+    {
+        goober.StartCoroutine(ExecuteAttack(goober));
+    }
+
+    // Subclasses implement this instead
+    protected abstract IEnumerator ExecuteAttack(Goober goober);
 }

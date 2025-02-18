@@ -16,7 +16,7 @@ public class PlayerAttacking : MonoBehaviour
     [Header("Combo")]
     public int currentAttack = 0;
     public UnityEvent[] SwordAttacks;
-    public float comboTime = 0.7f;
+    public float comboTime = 0.45f;
     public float comboTimer = 0f;
 
     [Header("Forces")]
@@ -34,21 +34,31 @@ public class PlayerAttacking : MonoBehaviour
     public float holdAttackMoveSpeed;
     private bool isHolding = false;
 
+    [Header("HoldModifiers")]
+    public float maxHoldTime;
+    public float currentHoldTime;
+    public float requiredHoldTime;
+    public float maxHoldScreenShakeStrength;
+    public float currentHoldScreenShakeStrength = 0f;
+
     [Header("Weapon")]
     public GameObject weapon;
     public GameObject weaponHolder;
     public SpriteRenderer pointer;
     [HideInInspector] public SpriteRenderer weaponSR;
     private Transform slashTransform;
-    private SpriteRenderer slashSR;
     public Sprite[] slashSprites;
-    public Transform[] SlashOrientations;
 
+    [Header("Hit Material")]
+    public Shader hitShader;
+    private Material hitMaterial;
+    public MaterialPropertyBlock hitMaterialPropertyBlock;
+    public bool hitEffectEnabled = false;
 
     private SwordKeyHandler currSwordKeyHandler;
     public bool shouldUpdateSwordLayer;
 
-    // Start is called before the first frame update
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -57,8 +67,10 @@ public class PlayerAttacking : MonoBehaviour
         playerSR = playerSprite.GetComponent<SpriteRenderer>();
 
         weaponSR = weapon.GetComponent<SpriteRenderer>();
-        slashSR = weapon.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
-        slashTransform = slashSR.gameObject.GetComponent<Transform>();
+
+        hitMaterial = new Material(hitShader);
+        hitMaterialPropertyBlock = new MaterialPropertyBlock();
+
     }
 
     // Update is called once per frame
@@ -73,6 +85,7 @@ public class PlayerAttacking : MonoBehaviour
         //aim
         weaponFaceCursor();
         swordLayerUpdate();
+        flipAttacking();
 
         //combo
         if (comboTimer >= 0)
@@ -147,7 +160,6 @@ public class PlayerAttacking : MonoBehaviour
         attackDirection = (mousePos - (Vector2)gameObject.transform.position).normalized;
         animator.SetFloat("AimHorizontal", attackDirection.x);
         animator.SetFloat("AimVertical", attackDirection.y);
-        animator.SetBool("Slash", true);
         if(playerSR.flipX == true)
         {
             pm.canFlip = false;
@@ -162,81 +174,75 @@ public class PlayerAttacking : MonoBehaviour
     //The feel & rotations & sprites of swing 1
     private IEnumerator Swing1()
     {
-        SetupSwing(0);
+        animator.SetBool("Slash", true);
+        SetupSwing();
         //
-        weapon.transform.localRotation = Quaternion.Euler(0, 0, -45f);
         rb.velocity = Vector2.zero;
         rb.AddForce(attackDirection * thrustForce, ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.3f);
         animator.SetBool("Slash", false);
-        slashSR.enabled = false;
         yield return new WaitForSeconds(0.1f);
         ResetSwingVariables();
     }
     private IEnumerator Swing2()
     {
-        SetupSwing(1);
-        slashSR.flipY = true;
+        animator.SetBool("Slash2", true);
+        SetupSwing();
         //
-        weapon.transform.localRotation = Quaternion.Euler(0, 0, 45f);
         rb.velocity = Vector2.zero;
         rb.AddForce(attackDirection * thrustForce, ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.3f);
-        animator.SetBool("Slash", false);
-        //
-        slashSR.enabled = false;
-        slashSR.flipY = false;
-        //
+        animator.SetBool("Slash2", false);
+
         yield return new WaitForSeconds(0.1f);
         ResetSwingVariables();
     }
-    private void SetupSwing(int swingIndex)
+    private void SetupSwing()
     {
         canAttack = false;
         pm.canMove = false;
-        weaponSR.enabled = true;
         //
-        slashSR.enabled = true;
         pointer.enabled = false;
-        slashTransform.position = SlashOrientations[swingIndex].position;
-        slashTransform.rotation = SlashOrientations[swingIndex].rotation;
-        flipAttackingLegs();
     }
     private void ResetSwingVariables()
     {
         pm.canMove = true;
         canAttack = true;
         pm.canFlip = true;
-        weaponSR.enabled = false;
-        weapon.transform.localRotation = Quaternion.identity;
         pointer.enabled = true;
     }
 
     private IEnumerator Stab()
     {
-        SetupSwing(2);
-        attackDistance += 0.5f;
+        animator.SetBool("Stab", true);
+        SetupSwing();
+        attackDistance *= 2;
         attackRangeAngle *= 0.25f;
-        slashSR.sprite = slashSprites[1];
         //
-        weapon.transform.localRotation = Quaternion.identity;
-        rb.velocity = Vector2.zero;
-        rb.AddForce(attackDirection * thrustForce * 5, ForceMode2D.Impulse);
-        yield return new WaitForSeconds(0.3f);
-        animator.SetBool("Slash", false);
-        //
-        slashSR.enabled = false;
-        slashSR.sprite = slashSprites[0];
-        //
-        yield return new WaitForSeconds(0.1f);
-        ResetSwingVariables();
-        //
-        attackRangeAngle *= 4f;
-        attackDistance -= 0.5f;
-        yield return new WaitForSeconds(0.5f);
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         attackDirection = (mousePos - (Vector2)weaponHolder.transform.position).normalized;
-        
+        float angle = Mathf.Atan2(attackDirection.y, attackDirection.x) * Mathf.Rad2Deg - 90f;
+        weaponHolder.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        //
+        rb.velocity = Vector2.zero;
+        rb.AddForce(attackDirection * thrustForce * 3, ForceMode2D.Impulse);
+        yield return new WaitForSeconds(0.1f);
+        weaponSR.enabled = true;
+        yield return new WaitForSeconds(0.2f);
+        animator.SetBool("Stab", false);
+        weaponSR.enabled = false;
+        //
+        yield return new WaitForSeconds(0.2f);
+        ResetSwingVariables();
+        canAttack = false; // set false to counter reseSwingVar() for full attack cooldown
+        yield return new WaitForSeconds(0.4f);
+        canAttack = true;
+        //
+        attackRangeAngle *= 4f;
+        attackDistance /= 2;
+        yield return new WaitForSeconds(0.5f);
+        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        attackDirection = (mousePos - (Vector2)weaponHolder.transform.position).normalized;
         
         weaponFaceCursor();
     }
@@ -247,22 +253,15 @@ public class PlayerAttacking : MonoBehaviour
         weaponSR.enabled = true;
         attackDistance += 0.5f;
         attackRangeAngle *= 0.25f;
+        animator.SetBool("Tease", false);
+        animator.SetBool("Stab", true);
         //
-        slashSR.sprite = slashSprites[1];
-        slashTransform.position = SlashOrientations[2].position;
-        slashTransform.rotation = SlashOrientations[2].rotation;
         weapon.transform.localPosition = new Vector3(0, 0.37f, 0);
-        
-        slashSR.enabled = true;
         //
         weapon.transform.localRotation = Quaternion.identity;
         rb.velocity = Vector2.zero;
         rb.AddForce(attackDirection * thrustForce * 7, ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.3f);
-        animator.SetBool("Slash", false);
-        //
-        slashSR.enabled = false;
-        slashSR.sprite = slashSprites[0];
         //
         if (KeyHoleCheck(attackDirection) == false)
         {
@@ -273,6 +272,7 @@ public class PlayerAttacking : MonoBehaviour
             pm.canMove = true;
             pm.moveSpeed = pm.walkSpeed;
             pm.canRoll = true;
+            animator.SetBool("Stab", false);
             //
             attackRangeAngle *= 4f;
             attackDistance -= 0.5f;
@@ -296,31 +296,52 @@ public class PlayerAttacking : MonoBehaviour
         pm.moveSpeed = holdAttackMoveSpeed;
         pm.canRoll = false;
         pm.canFlip = false;
-        pointer.enabled = false;
-        weaponSR.enabled = true;
+        pointer.enabled = true;
         isHolding = true;
+        animator.SetBool("Tease", true);
         weaponSR.sortingOrder = playerSR.sortingOrder - 1;
-        weapon.transform.localPosition = new Vector3(0, 0.1f, 0);
+        //weapon.transform.localPosition = new Vector3(0, 0.1f, 0);
     }
-    private void EndHoldAttack()
+
+    private void EndHoldAttack() 
     {
+        Debug.Log("HOLDING");
+        currentHoldTime += Time.deltaTime;
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         attackDirection = (mousePos - (Vector2)gameObject.transform.position).normalized;
         animator.SetFloat("AimHorizontal", attackDirection.x);
         animator.SetFloat("AimVertical", attackDirection.y);
-        flipAttackingLegs();
+        flipAttacking();
+
+        currentHoldScreenShakeStrength = Mathf.Lerp(currentHoldScreenShakeStrength, maxHoldScreenShakeStrength, Time.deltaTime);
+        ScreenShakeController.instance.StartShake(0.1f, currentHoldScreenShakeStrength);
         //
-        if (attackInput == 0)
+        if (currentHoldTime >= maxHoldTime || (attackInput == 0 && currentHoldTime >= requiredHoldTime))
         {
+            currentHoldTime = 0;
+            currentHoldScreenShakeStrength = 0;
             isHolding = false;
             StartCoroutine(HoldStab());
             currentAttack = 3;
+            weaponFaceCursor();
             attackCheck(attackDirection);
             currentAttack = 0;
         }
+        else if (attackInput == 0 && currentHoldTime < requiredHoldTime)
+        {
+            canAttack = true;
+            pm.moveSpeed = pm.walkSpeed;
+            pm.canRoll = true;
+            pm.canFlip = true;
+            pointer.enabled = true;
+            isHolding = false;
+            animator.SetBool("Tease", false);
+            weaponSR.sortingOrder = playerSR.sortingOrder + 1;
+            //DFGHKJLKLKJHGHFCCHKJLK:LFJASJNLKFLSAJL<MJNKFHBASHJFBKHJASL:JHHVGJBLKJJVHB:LASKLFBJHASJJLKSABFKAJLSNFHJABSJFHBALSFNKJBSAFHKBS
+        }
     }
 
-    private void flipAttackingLegs()
+    private void flipAttacking()
     {
         if(attackDirection.x > 0 && attackDirection.x > Mathf.Abs(attackDirection.y))
         {
@@ -342,28 +363,67 @@ public class PlayerAttacking : MonoBehaviour
 
     private void attackCheck(Vector2 attackDir)
     {
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, attackDistance);
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, attackDistance, ~LayerMask.GetMask("IgnoreRaycast"));
 
         foreach (var hit in hitColliders)
         {
             if (hit.CompareTag("Enemy"))
             {
+                Debug.Log(hit.name);
                 Vector2 toTarget = (hit.transform.position - transform.position).normalized;
                 float angle = Vector2.Angle(attackDir, toTarget);
-                if (angle <= attackRangeAngle) //If it hits an enemy in a slash range
+                if (angle <= attackRangeAngle) // If it hits an enemy in a slash range
                 {
                     Rigidbody2D enemyRb = hit.GetComponent<Rigidbody2D>();
                     EnemyHealthManager enemyHealth = hit.GetComponent<EnemyHealthManager>();
                     EnemyHit(attackDir, enemyRb, enemyHealth);
+
+                    ApplyHitEffect(true, hit.GetComponent<SpriteRenderer>());
+
+                    if (hit.gameObject.layer == LayerMask.NameToLayer("Dasher"))
+                    {
+                        Goober gooberScript = hit.GetComponent<Goober>();
+                        if (gooberScript != null && gooberScript.attackBehavior is DashAttack dashAttack)
+                        {
+                            if (dashAttack.isDashing)
+                            {
+                                Debug.Log("Perfect Hit");
+                                enemyHealth.life = 0;
+                            }
+                        }
+                    }
                 }
             }
-            if (hit.gameObject.layer == LayerMask.NameToLayer("Dasher"))
+        }
+    }
+
+
+    private void EnemyHit(Vector2 attackDir, Rigidbody2D enemyRb, EnemyHealthManager enemyHealth)
+    {
+        ScreenShakeController.instance.StartShake(0.3f, 1f);
+        if (enemyHealth.knockback > 0)
+        {
+            enemyRb.GetComponent<Goober>().gotHitPS.Play();
+            if (currentAttack != 2)
             {
-                if(hit.GetComponent<DashEnemyMovementBehavior>().isDashing)
-                {
-                    EnemyHealthManager enemyHealth2 = hit.GetComponent<EnemyHealthManager>();
-                    enemyHealth2.life = 0;
-                }
+                enemyRb.AddForce(attackDir * enemyHealth.knockback * 10, ForceMode2D.Impulse);
+                enemyHealth.life -= slashDamage;
+            }
+            else
+            {
+                enemyRb.AddForce(attackDir * enemyHealth.knockback * 20, ForceMode2D.Impulse);
+                enemyHealth.life -= stabDamage;
+            }
+        }
+        else //if they have negative knockback, they should hit enemy and fly backwards like hitting a block of stone
+        {
+            if (currentAttack != 3)
+            {
+                rb.AddForce(attackDir * enemyHealth.knockback * 10, ForceMode2D.Impulse);
+            }
+            else
+            {
+                rb.AddForce(attackDir * enemyHealth.knockback * 20, ForceMode2D.Impulse);
             }
         }
     }
@@ -414,34 +474,7 @@ public class PlayerAttacking : MonoBehaviour
         weaponFaceCursor();
     }
 
-    private void EnemyHit(Vector2 attackDir, Rigidbody2D enemyRb, EnemyHealthManager enemyHealth)
-    {
-        ScreenShakeController.instance.StartShake(0.3f, 1f);
-        if (enemyHealth.knockback > 0)
-        {
-            if (currentAttack != 2)
-            {
-                enemyRb.AddForce(attackDir * enemyHealth.knockback * 100, ForceMode2D.Impulse);
-                enemyHealth.life -= slashDamage;
-            }
-            else
-            {
-                enemyRb.AddForce(attackDir * enemyHealth.knockback * 200, ForceMode2D.Impulse);
-                enemyHealth.life -= stabDamage;
-            }
-        }
-        else //if they have negative knockback, they should hit enemy and fly backwards like hitting a block of stone
-        {
-            if (currentAttack != 3)
-            {
-                rb.AddForce(attackDir * enemyHealth.knockback * 10, ForceMode2D.Impulse);
-            }
-            else
-            {
-                rb.AddForce(attackDir * enemyHealth.knockback * 20, ForceMode2D.Impulse);
-            }
-        }
-    }
+    
 
     private void comboCountdown()
     {
@@ -470,5 +503,31 @@ public class PlayerAttacking : MonoBehaviour
         {
             weaponSR.sortingOrder = playerSR.sortingOrder + 1;
         }
+    }
+
+    private void ApplyHitEffect(bool enableEffect, SpriteRenderer enemySR)
+    {
+        if (enemySR == null) return;
+
+        if (hitMaterialPropertyBlock == null)
+            hitMaterialPropertyBlock = new MaterialPropertyBlock();
+
+        // Get the current property block
+        enemySR.GetPropertyBlock(hitMaterialPropertyBlock);
+
+        // Set the boolean property for the shader
+        hitMaterialPropertyBlock.SetFloat("_UseMainTexColor", enableEffect ? 0.0f : 1.0f);
+
+        // Apply it back to the material
+        enemySR.SetPropertyBlock(hitMaterialPropertyBlock);
+        StartCoroutine(ResetHitEffect(enemySR));
+    }
+
+
+    // Coroutine to reset effect after delay
+    private IEnumerator ResetHitEffect(SpriteRenderer enemyRenderer)
+    {
+        yield return new WaitForSeconds(0.3f);
+        ApplyHitEffect(false, enemyRenderer);
     }
 }

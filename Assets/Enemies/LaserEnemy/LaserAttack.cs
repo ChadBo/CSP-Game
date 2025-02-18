@@ -6,13 +6,19 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 public class LaserAttack : EnemyAttack
 {
     private LineRenderer lineRenderer;
-    private ParticleSystem hitPS;
+    private ParticleSystem whereHitPS;
     private Animator animator;
 
-    public override IEnumerator Attack(Goober goober)
+    public override void Attack(Goober goober)
     {
+        // Start the attack coroutine on the Goober instance
+        goober.StartCoroutine(ExecuteAttack(goober));
+    }
+
+    protected override IEnumerator ExecuteAttack(Goober goober)
+        {
         lineRenderer = goober.GetComponent<LineRenderer>();
-        hitPS = goober.transform.parent.Find("HitParticleEffect").GetComponent<ParticleSystem>();
+        whereHitPS = goober.transform.parent.Find("LaserHitPS").GetComponent<ParticleSystem>();
         animator = goober.GetComponent<Animator>();
         //SETUP
         goober.canAttack = false;
@@ -56,8 +62,8 @@ public class LaserAttack : EnemyAttack
 
                 lineRenderer.SetPosition(0, goober.transform.position);
                 lineRenderer.SetPosition(1, hit.point);
-                hitPS.gameObject.transform.position = hit.point;
-                hitPS.Play();
+                whereHitPS.gameObject.transform.position = hit.point;
+                whereHitPS.Play();
             }
             else
             {
@@ -69,8 +75,8 @@ public class LaserAttack : EnemyAttack
                 {
                     lineRenderer.SetPosition(0, goober.transform.position);
                     lineRenderer.SetPosition(1, pastPlayerHit.point);
-                    hitPS.gameObject.transform.position = pastPlayerHit.point;
-                    hitPS.Play();
+                    whereHitPS.gameObject.transform.position = pastPlayerHit.point;
+                    whereHitPS.Play();
                 }
                 else
                 {
@@ -78,8 +84,8 @@ public class LaserAttack : EnemyAttack
                     Vector2 endPoint = (Vector2)hit.point + goober.directionToPlayer * attackingRadius * 4;
                     lineRenderer.SetPosition(0, goober.transform.position);
                     lineRenderer.SetPosition(1, endPoint);
-                    hitPS.gameObject.transform.position = endPoint;
-                    hitPS.Play();
+                    whereHitPS.gameObject.transform.position = endPoint;
+                    whereHitPS.Play();
                 }
             }
 
@@ -92,8 +98,8 @@ public class LaserAttack : EnemyAttack
         {
             lineRenderer.SetPosition(0, goober.transform.position);
             lineRenderer.SetPosition(1, hit.point);
-            hitPS.gameObject.transform.position = hit.point;
-            hitPS.Play();
+            whereHitPS.gameObject.transform.position = hit.point;
+            whereHitPS.Play();
         }
         goober.state = 1;
         yield return new WaitForSeconds(0.2f);

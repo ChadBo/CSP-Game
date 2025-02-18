@@ -9,8 +9,13 @@ public class PulseAttack : EnemyAttack
     [SerializeField] private Sprite[] pulseSprites;
     [SerializeField] private Sprite[] bodySprites;
 
+    public override void Attack(Goober goober)
+    {
+        // Start the attack coroutine on the Goober instance
+        goober.StartCoroutine(ExecuteAttack(goober));
+    }
 
-    public override IEnumerator Attack(Goober goober)
+    protected override IEnumerator ExecuteAttack(Goober goober)
     {
         //GETTING COMPONENTS
 
