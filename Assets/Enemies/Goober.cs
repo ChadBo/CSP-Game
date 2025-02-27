@@ -26,6 +26,7 @@ public class Goober : EnemyClass
     public bool pause = false;
     public float maxWanderTime = 6f;
     public float curWanderTime;
+    public Collider2D wanderZone;
 
     [Header("Attacking")]
     public EnemyAttack attackBehavior;
@@ -63,6 +64,8 @@ public class Goober : EnemyClass
         localKnockback = healthScript.knockback;
         ResetMaterial();
 
+        wanderZone.GetComponent<EnemyZone>().EnemiesWithin.Add(this);
+
         // 🔹 Initialize Animator & Slash Variables (If They Exist)
         animator = GetComponent<Animator>();
         if (transform.childCount > 0)
@@ -79,51 +82,90 @@ public class Goober : EnemyClass
         if (state == 0) patrol();
         else if (state == 1) chasePlayer();
 
-        wanderCountdown();
-    }
+        directionToPlayer = ((Vector2)player.position - (Vector2)transform.position).normalized;
 
-    // PATROLLING / WANDERING
-    private void patrol()
-    {
-        Collider2D circlehit = Physics2D.OverlapCircle(transform.position, sightRadius, LayerMask.GetMask("Player"));
-        if (circlehit != null && circlehit.CompareTag("Player"))
-        {
-            target = player;
-            state = 1;
-            playerSeen = true;
-            Invoke("SetCanAttack", 0.75f);
-        }
-        else StartCoroutine(wander());
+        wanderCountdown();
     }
 
     private void SetCanAttack() => canAttack = true;
 
-    private IEnumerator wander()
+    // PATROLLING / WANDERING
+    private void patrol() //Checks if the player is within its sight.
     {
-        if (wanderPosition == Vector2.zero || curWanderTime == 0f)
+        Collider2D circlehit = Physics2D.OverlapCircle(transform.position, sightRadius, LayerMask.GetMask("Player"));
+        if (circlehit != null && circlehit.CompareTag("Player"))
         {
-            yield return new WaitForSeconds(Random.Range(0, 4));
+            gameObject.GetComponent<Collider2D>().enabled = false;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToPlayer, sightRadius, ~LayerMask.GetMask("Ignore Raycast"));
+            gameObject.GetComponent<Collider2D>().enabled = true;
+            
+            if (hit.collider != null && hit.collider.CompareTag("Player"))
+            {
+                wanderZone.GetComponent<EnemyZone>().notifyEnemiesOfPlayer();
+                StartChasingPlayer();
+            }
+        }
+        else { Wandering(); }
+    }
 
+    public void StartChasingPlayer()
+    {
+        target = player;
+        state = 1;
+        playerSeen = true;
+        Invoke("SetCanAttack", 0.75f);
+    }
+
+    private void Wandering()
+    {
+        if(curWanderTime <= 0f)
+        {
+            StartCoroutine(PauseAndFindNewWander());
+            curWanderTime = maxWanderTime;
+        }
+        else
+        {
+            agent.speed = roamingSpeed;
+            agent.SetDestination(wanderPosition);
+        }
+    }
+
+    private IEnumerator PauseAndFindNewWander()
+    {
+        agent.speed = 0f;
+        yield return new WaitForSeconds(Random.Range(0.5f, 4));
+
+        Vector2 newWanderPosition;
+        int maxAttempts = 10; // Prevent infinite loops
+        int attempts = 0;
+
+        do
+        {
             float randomX = Random.Range(-wanderRange, wanderRange);
             float randomY = Random.Range(-wanderRange, wanderRange);
-            wanderPosition = (Vector2)transform.position + new Vector2(randomX, randomY);
-            if (wall.GetTile(wall.WorldToCell(wanderPosition)) != null)
+            newWanderPosition = (Vector2)transform.position + new Vector2(randomX, randomY);
+            attempts++;
+
+            if (attempts >= maxAttempts)
             {
-                wanderPosition = Vector2.zero;
+                yield break;
             }
-            else curWanderTime = maxWanderTime;
         }
+        while (!wanderZone.OverlapPoint(newWanderPosition) || wall.GetTile(wall.WorldToCell(newWanderPosition)) != null);
 
-        agent.speed = roamingSpeed;
+        wanderPosition = newWanderPosition;
+        curWanderTime = maxWanderTime;
         if (agent.enabled) agent.SetDestination(wanderPosition);
-
-        if (Vector3.Distance(transform.position, wanderPosition) < 0.5f) wanderPosition = Vector2.zero;
     }
+
 
     private void wanderCountdown()
     {
         if (curWanderTime > 0f) curWanderTime -= Time.deltaTime;
-        else curWanderTime = 0f;
+        else if ( curWanderTime <= 0f && state == 0)
+        {
+            agent.speed = 0f;
+        }
     }
 
     // CHASING
@@ -139,7 +181,6 @@ public class Goober : EnemyClass
     // ATTACKING
     private void checkIfCanAttack()
     {
-        directionToPlayer = ((Vector2)player.position - (Vector2)transform.position).normalized;
         if (Vector2.Distance(transform.position, player.position) < attackBehavior.attackingRadius && canAttack)
         {
             Collider2D selfColl = gameObject.GetComponent<Collider2D>();

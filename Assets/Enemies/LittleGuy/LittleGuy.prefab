@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7042f8f81b1c4995a3fe36b9b229cb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sightRadius: 10
+  sightRadius: 5
   wanderPosition: {x: 0, y: 0}
   wanderRange: 10
   roamingSpeed: 2
@@ -209,7 +209,8 @@ MonoBehaviour:
   state: 0
   pause: 0
   maxWanderTime: 6
-  curWanderTime: 5
+  curWanderTime: 0
+  wanderZone: {fileID: 0}
   attackBehavior: {fileID: 11400000, guid: b37297222200c4f7d8c6c7ebd1a701a7, type: 2}
   canAttack: 1
   attackIndicator: {fileID: 0}
@@ -386,7 +387,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2790620390657725166}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:

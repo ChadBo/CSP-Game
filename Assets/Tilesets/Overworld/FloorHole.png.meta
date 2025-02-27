@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bf01ffc40eb464361b31ccd13c0ccf57
+guid: baf219fb138eb4b0bb5589d8f1fc8583
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -101,7 +101,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 48
+        y: 32
         width: 16
         height: 16
       alignment: 0
@@ -111,8 +111,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: af55938cb7c5843d4a094783625c130c
-      internalID: -1860200325
+      spriteID: 562f90bb321784c189dccde45eef0d4d
+      internalID: -1065183489
       vertices: []
       indices: 
       edges: []
@@ -122,7 +122,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 16
-        y: 48
+        y: 32
         width: 16
         height: 16
       alignment: 0
@@ -132,8 +132,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a73744282337748339a8915f2660bd4b
-      internalID: 1453450901
+      spriteID: 90cebce5c737343f7867ff1a0d3107ee
+      internalID: 440284314
       vertices: []
       indices: 
       edges: []
@@ -143,7 +143,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 48
+        y: 32
         width: 16
         height: 16
       alignment: 0
@@ -153,8 +153,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f64f52db98a2c4347ad41064fb0a00ba
-      internalID: -196703362
+      spriteID: 468d5cbcfc18c42b59167317b55caafa
+      internalID: 1461616345
       vertices: []
       indices: 
       edges: []
@@ -164,7 +164,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 48
-        y: 48
+        y: 32
         width: 16
         height: 16
       alignment: 0
@@ -174,8 +174,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bf049637277554b1f8e51d31eb47f997
-      internalID: -603725040
+      spriteID: c15c030fc0e52481aafa2eba52836a0d
+      internalID: 155031527
       vertices: []
       indices: 
       edges: []
@@ -185,7 +185,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 48
+        y: 32
         width: 16
         height: 16
       alignment: 0
@@ -195,8 +195,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ce112c9e366d24fac8a75717998f8ed5
-      internalID: -1806200694
+      spriteID: e5fd0ac8b6a6940d0b347d80464f6e63
+      internalID: 1251834689
       vertices: []
       indices: 
       edges: []
@@ -206,7 +206,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 80
-        y: 48
+        y: 32
         width: 16
         height: 16
       alignment: 0
@@ -216,8 +216,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d10033fdf2a4243119d9b61d3b3a3de4
-      internalID: 1972546864
+      spriteID: fb4030976d99f443d89cfd5eaf852dbf
+      internalID: 1339329350
       vertices: []
       indices: 
       edges: []
@@ -226,7 +226,7 @@ TextureImporter:
       name: FloorHole_6
       rect:
         serializedVersion: 2
-        x: 0
+        x: 96
         y: 32
         width: 16
         height: 16
@@ -237,8 +237,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e6fbe35329a8c41d6a8ece24f5346e17
-      internalID: -1880759243
+      spriteID: 4d627a65a53914bd8ae3210da0191da1
+      internalID: -1900722980
       vertices: []
       indices: 
       edges: []
@@ -247,7 +247,7 @@ TextureImporter:
       name: FloorHole_7
       rect:
         serializedVersion: 2
-        x: 32
+        x: 112
         y: 32
         width: 16
         height: 16
@@ -258,8 +258,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dc102d3485f894aecb1ef8fd102c5cf3
-      internalID: -447236276
+      spriteID: 6bca0b29ea78d4a1d9d58b7466220647
+      internalID: -1308079985
       vertices: []
       indices: 
       edges: []
@@ -268,7 +268,7 @@ TextureImporter:
       name: FloorHole_8
       rect:
         serializedVersion: 2
-        x: 48
+        x: 128
         y: 32
         width: 16
         height: 16
@@ -279,8 +279,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 701f81b3d5e0d46d58b96da1de5efddb
-      internalID: 871981730
+      spriteID: fe7c9532450fb422a945cbc474adade9
+      internalID: 1488987802
       vertices: []
       indices: 
       edges: []
@@ -289,7 +289,7 @@ TextureImporter:
       name: FloorHole_9
       rect:
         serializedVersion: 2
-        x: 80
+        x: 144
         y: 32
         width: 16
         height: 16
@@ -300,8 +300,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 31f16fc79e8c646d4922deba45a52114
-      internalID: 729161534
+      spriteID: 14580b6d633a64083816b2a039fddb4a
+      internalID: 1312289311
       vertices: []
       indices: 
       edges: []
@@ -321,14 +321,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6daad9336c97e411780a41cf64128d16
-      internalID: -939312011
+      spriteID: fa24ca410f46a419e94a8435a3892284
+      internalID: 1931326191
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
       name: FloorHole_11
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cd4673998a2643de82ccb11f2b75eec
+      internalID: -1486426550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FloorHole_12
       rect:
         serializedVersion: 2
         x: 32
@@ -342,14 +363,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: af1d143647fa6476a9af3bb83c3b67bc
-      internalID: 2097918535
+      spriteID: 2a129b71004c441399bf37bd4d5d33aa
+      internalID: -220090821
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorHole_12
+      name: FloorHole_13
       rect:
         serializedVersion: 2
         x: 48
@@ -363,14 +384,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8db389f2cfe3b44b0ae4a28ee3c256ad
-      internalID: -2034962246
+      spriteID: 4994d92985d75480cacce80058f474d6
+      internalID: 993901829
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorHole_13
+      name: FloorHole_14
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d07cabe7c88ef4b72ad1bd61fe2de9a3
+      internalID: 1300271112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FloorHole_15
       rect:
         serializedVersion: 2
         x: 80
@@ -384,14 +426,98 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a8db933f83f034959b385ac8e1e8a0dd
-      internalID: 1845618769
+      spriteID: 431135417835342d893027a1e093d296
+      internalID: -2016258595
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorHole_14
+      name: FloorHole_16
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1e140dd158d34e6dad0deff64ae12d1
+      internalID: -663174617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FloorHole_17
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e14885dd37e24d88abea65de3b15a98
+      internalID: -1126741616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FloorHole_18
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83b2a6ccda4e0489cb26711fce55854e
+      internalID: -928536571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FloorHole_19
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68cfc7ea3d795451fb7784125cf390ba
+      internalID: -473325493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FloorHole_20
       rect:
         serializedVersion: 2
         x: 0
@@ -405,14 +531,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bedfb6c2cc6d64a51a962e34b2b68389
-      internalID: -676422907
+      spriteID: b3e35fdd714d740de8a18d43a4ed89db
+      internalID: -179526332
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorHole_15
+      name: FloorHole_21
       rect:
         serializedVersion: 2
         x: 16
@@ -426,14 +552,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 14c929656dbad4b54a98e454eb0d2274
-      internalID: 1396407041
+      spriteID: 52727007b51234719818c0347ea5958f
+      internalID: 1907455832
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorHole_16
+      name: FloorHole_22
       rect:
         serializedVersion: 2
         x: 32
@@ -447,56 +573,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 90ebe0427bd714ff69373e1507490962
-      internalID: 1958677292
+      spriteID: 703794756945d48c8933ffc8bc0f143e
+      internalID: 239150198
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorHole_17
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a09e6041f50a045a985e49111d26193b
-      internalID: 403099553
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FloorHole_18
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 56f89a0e0b7dc463599ba5c6e571a56c
-      internalID: -1500175754
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FloorHole_19
+      name: FloorHole_23
       rect:
         serializedVersion: 2
         x: 80
@@ -510,8 +594,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f0350db551a7a47a1ac14c86393df189
-      internalID: -750981152
+      spriteID: 6f0228fc4bc4f4c4998c16406b8e464f
+      internalID: 1169174825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FloorHole_24
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0cc5d9be13df34e058a3148d08caec3b
+      internalID: -1849696936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FloorHole_25
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97e5a933c94fd4fb9a719b1ebfafd786
+      internalID: 105740455
       vertices: []
       indices: 
       edges: []
@@ -527,26 +653,32 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      FloorHole_0: -1860200325
-      FloorHole_1: 1453450901
-      FloorHole_10: -939312011
-      FloorHole_11: 2097918535
-      FloorHole_12: -2034962246
-      FloorHole_13: 1845618769
-      FloorHole_14: -676422907
-      FloorHole_15: 1396407041
-      FloorHole_16: 1958677292
-      FloorHole_17: 403099553
-      FloorHole_18: -1500175754
-      FloorHole_19: -750981152
-      FloorHole_2: -196703362
-      FloorHole_3: -603725040
-      FloorHole_4: -1806200694
-      FloorHole_5: 1972546864
-      FloorHole_6: -1880759243
-      FloorHole_7: -447236276
-      FloorHole_8: 871981730
-      FloorHole_9: 729161534
+      FloorHole_0: -1065183489
+      FloorHole_1: 440284314
+      FloorHole_10: 1931326191
+      FloorHole_11: -1486426550
+      FloorHole_12: -220090821
+      FloorHole_13: 993901829
+      FloorHole_14: 1300271112
+      FloorHole_15: -2016258595
+      FloorHole_16: -663174617
+      FloorHole_17: -1126741616
+      FloorHole_18: -928536571
+      FloorHole_19: -473325493
+      FloorHole_2: 1461616345
+      FloorHole_20: -179526332
+      FloorHole_21: 1907455832
+      FloorHole_22: 239150198
+      FloorHole_23: 1169174825
+      FloorHole_24: -1849696936
+      FloorHole_25: 105740455
+      FloorHole_3: 155031527
+      FloorHole_4: 1251834689
+      FloorHole_5: 1339329350
+      FloorHole_6: -1900722980
+      FloorHole_7: -1308079985
+      FloorHole_8: 1488987802
+      FloorHole_9: 1312289311
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

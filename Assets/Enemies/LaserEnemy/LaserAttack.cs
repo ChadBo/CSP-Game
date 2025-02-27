@@ -56,7 +56,7 @@ public class LaserAttack : EnemyAttack
             if(!goober.pm.isRolling)
             {
                 ScreenShakeController.instance.StartShake(0.5f, 3f);
-                goober.playerHealth.health -= attackDamage;
+                goober.playerHealth.health -= 1;
                 goober.pm.canMove = false;
                 goober.playerRb.AddForce(goober.directionToPlayer * 3000, ForceMode2D.Force);
 

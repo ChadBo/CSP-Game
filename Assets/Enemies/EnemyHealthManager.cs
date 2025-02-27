@@ -28,6 +28,7 @@ public class EnemyHealthManager : MonoBehaviour
         goober.enabled = false;
 
         goober.StopAllCoroutines();
+        goober.ApplyHitEffect(false, goober.pm.sr);
 
         gameObject.GetComponent<NavMeshAgent>().enabled = false;
 

@@ -11,6 +11,7 @@ public class PlayerAttacking : MonoBehaviour
     private Animator animator;
     private SpriteRenderer playerSR;
     private float attackInput;
+    public Collider2D selfCollider;
 
     public bool canAttack = true;
     [Header("Combo")]
@@ -300,12 +301,10 @@ public class PlayerAttacking : MonoBehaviour
         isHolding = true;
         animator.SetBool("Tease", true);
         weaponSR.sortingOrder = playerSR.sortingOrder - 1;
-        //weapon.transform.localPosition = new Vector3(0, 0.1f, 0);
     }
 
     private void EndHoldAttack() 
     {
-        Debug.Log("HOLDING");
         currentHoldTime += Time.deltaTime;
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         attackDirection = (mousePos - (Vector2)gameObject.transform.position).normalized;
@@ -363,7 +362,7 @@ public class PlayerAttacking : MonoBehaviour
 
     private void attackCheck(Vector2 attackDir)
     {
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, attackDistance, ~LayerMask.GetMask("IgnoreRaycast"));
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, attackDistance, ~LayerMask.GetMask("Ignore Raycast") | ~LayerMask.GetMask("Player"));
 
         foreach (var hit in hitColliders)
         {
@@ -430,10 +429,13 @@ public class PlayerAttacking : MonoBehaviour
 
     private bool KeyHoleCheck(Vector2 attackDir)
     {
-        gameObject.GetComponent<Collider2D>().enabled = false;
-        RaycastHit2D keyHit = Physics2D.Raycast(transform.position, attackDir, attackDistance, 9);
-        gameObject.GetComponent<Collider2D>().enabled = true;
-
+        selfCollider.enabled = false;
+        RaycastHit2D keyHit = Physics2D.Raycast(transform.position, attackDir, attackDistance, ~LayerMask.GetMask("Ignore Raycast") & ~LayerMask.GetMask("Player") & ~LayerMask.GetMask("YSorting"));
+        selfCollider.enabled = true;
+        if(keyHit.collider != null)
+        {
+            Debug.Log(keyHit.collider.name);
+        }
         if (keyHit.collider != null && keyHit.collider.CompareTag("KeyHole"))
         {
             currSwordKeyHandler = keyHit.collider.GetComponent<SwordKeyHandler>();

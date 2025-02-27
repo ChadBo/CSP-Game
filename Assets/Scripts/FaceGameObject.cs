@@ -9,7 +9,7 @@ public class FaceGameObject : MonoBehaviour
     public float addedDegrees = 0;
     public bool flipOnOverTurn;
 
-    public SpriteRenderer sr;
+    public SpriteRenderer srIfOverturn;
 
     void Update()
     {
@@ -20,9 +20,9 @@ public class FaceGameObject : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, 0f, angle + addedDegrees);
 
             // Flip sprite if it turns beyond ±90 degrees
-            if (flipOnOverTurn && sr != null)
+            if (flipOnOverTurn && srIfOverturn != null)
             {
-                sr.flipY = Mathf.Abs(angle) > 90f;
+                srIfOverturn.flipY = Mathf.Abs(angle) > 90f;
                 //Debug.Log(angle);
             }
         }

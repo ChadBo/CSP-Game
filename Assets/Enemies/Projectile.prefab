@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: e19f55c74703a413aaf5a242181f94d9, type: 3}
-  m_Color: {r: 0, g: 0.71347237, b: 1, a: 1}
+  m_Color: {r: 0.75, g: 1, b: 0.8748775, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -162,3 +162,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileDamage: 10
+  controllingGoober: {fileID: 0}

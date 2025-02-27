@@ -5087,7 +5087,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7042f8f81b1c4995a3fe36b9b229cb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sightRadius: 10
+  sightRadius: 5
   wanderPosition: {x: 0, y: 0}
   wanderRange: 10
   roamingSpeed: 1
@@ -5107,6 +5107,7 @@ MonoBehaviour:
   pause: 0
   maxWanderTime: 6
   curWanderTime: 5
+  wanderZone: {fileID: 0}
   attackBehavior: {fileID: 11400000, guid: 59fb54a2b1c8a4882b97ef326be6aedd, type: 2}
   canAttack: 1
   attackIndicator: {fileID: 0}
@@ -5128,7 +5129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45ec217ce4d254468aa7458b3a634019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 100
+  life: 50
   knockback: 45
   thingsToDisableOnDeath:
   - {fileID: 5887997483700853808}
@@ -5368,7 +5369,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8717450442252119811}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:

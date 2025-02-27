@@ -5,15 +5,15 @@ using UnityEngine.UI;
 
 public class PlayerHealthManager : MonoBehaviour
 {
-    public float health;
-    public Image healthUIImage;
+    public int health;
+    public Image healthUIBar;
+    public Sprite[] healthBarImages;
 
     // Update is called once per frame
     void Update()
     {
         Die();
-
-        healthUIImage.fillAmount = health / 100;
+        setHealthBarLook();
     }
 
     private void Die()
@@ -22,5 +22,10 @@ public class PlayerHealthManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void setHealthBarLook()
+    {
+        healthUIBar.sprite = healthBarImages[health-1];
     }
 }
