@@ -6,14 +6,21 @@ using UnityEngine.UI;
 public class PlayerHealthManager : MonoBehaviour
 {
     public int health;
-    public Image healthUIBar;
-    public Sprite[] healthBarImages;
+    public int maxHealth;
+    public Image LifeUIBar;
+    public Sprite[] LifeBarImages;
+
+    public Image healMeterAmount;
+    private float healInput;
+
 
     // Update is called once per frame
     void Update()
     {
+        healInput = InputManager.Heal;
         Die();
         setHealthBarLook();
+        UseHeal();
     }
 
     private void Die()
@@ -26,6 +33,21 @@ public class PlayerHealthManager : MonoBehaviour
 
     private void setHealthBarLook()
     {
-        healthUIBar.sprite = healthBarImages[health-1];
+        LifeUIBar.sprite = LifeBarImages[health-1];
+    }
+
+
+    public void addToHealMeter(float amount)
+    {
+        healMeterAmount.fillAmount += amount / 10;
+    }
+
+    public void UseHeal()
+    {
+        if(healInput > 0 && healMeterAmount.fillAmount == 1)
+        {
+            health = maxHealth;
+            healMeterAmount.fillAmount = 0f;
+        }
     }
 }

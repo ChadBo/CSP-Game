@@ -27,6 +27,8 @@ public class Goober : EnemyClass
     public float maxWanderTime = 6f;
     public float curWanderTime;
     public Collider2D wanderZone;
+    public Vector2 wanderPosition;
+    public int nativeFacingDirectionForFlipX = -1;
 
     [Header("Attacking")]
     public EnemyAttack attackBehavior;
@@ -65,6 +67,7 @@ public class Goober : EnemyClass
         ResetMaterial();
 
         wanderZone.GetComponent<EnemyZone>().EnemiesWithin.Add(this);
+        wanderPosition = transform.position;
 
         // 🔹 Initialize Animator & Slash Variables (If They Exist)
         animator = GetComponent<Animator>();
@@ -85,6 +88,8 @@ public class Goober : EnemyClass
         directionToPlayer = ((Vector2)player.position - (Vector2)transform.position).normalized;
 
         wanderCountdown();
+        flipSideways();
+        animator.SetFloat("Speed", agent.speed);
     }
 
     private void SetCanAttack() => canAttack = true;
@@ -125,7 +130,6 @@ public class Goober : EnemyClass
         }
         else
         {
-            agent.speed = roamingSpeed;
             agent.SetDestination(wanderPosition);
         }
     }
@@ -134,6 +138,7 @@ public class Goober : EnemyClass
     {
         agent.speed = 0f;
         yield return new WaitForSeconds(Random.Range(0.5f, 4));
+        agent.speed = roamingSpeed;
 
         Vector2 newWanderPosition;
         int maxAttempts = 10; // Prevent infinite loops
@@ -228,5 +233,21 @@ public class Goober : EnemyClass
     {
         yield return new WaitForSeconds(0.3f);
         ApplyHitEffect(false, playerSR);
+    }
+
+    private void flipSideways()
+    {
+        if(nativeFacingDirectionForFlipX == -1 && directionToPlayer.x > 0)
+        {
+            sr.flipX = true;
+        }
+        else if (nativeFacingDirectionForFlipX == 1 && directionToPlayer.x < 0)
+        {
+            sr.flipX = true;
+        }
+        else
+        {
+            sr.flipX = false;
+        }
     }
 }

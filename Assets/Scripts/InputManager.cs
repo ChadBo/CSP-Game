@@ -11,6 +11,8 @@ public class InputManager : MonoBehaviour
     public static float Roll;
     public static float Sprint;
     public static float Interact;
+    public static float Heal;
+    public static float Menu;
     //
     private PlayerInput playerInput;
 
@@ -27,6 +29,9 @@ public class InputManager : MonoBehaviour
     private InputAction sprintInput;
 
     private InputAction interactInput;
+    private InputAction healInput;
+
+    private InputAction MenuInput;
 
     private void Update()
     {
@@ -35,6 +40,8 @@ public class InputManager : MonoBehaviour
         Roll = rollInput.ReadValue<float>();
         Sprint = sprintInput.ReadValue<float>();
         Interact = interactInput.ReadValue<float>();
+        Heal = healInput.ReadValue<float>();
+        Menu = MenuInput.ReadValue<float>();
         //
         CheckIfTappedOrHeld();
     }
@@ -48,6 +55,8 @@ public class InputManager : MonoBehaviour
         rollInput = playerInput.actions["Roll"];
         sprintInput = playerInput.actions["Sprint"];
         interactInput = playerInput.actions["Interact"];
+        healInput = playerInput.actions["Heal"];
+        MenuInput = playerInput.actions["Open Stickers"];
     }
 
     private void CheckIfTappedOrHeld()

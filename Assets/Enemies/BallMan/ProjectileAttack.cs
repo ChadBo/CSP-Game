@@ -28,7 +28,7 @@ public class ProjectileAttack : EnemyAttack
         float angle = Mathf.Atan2(goober.directionToPlayer.y, goober.directionToPlayer.x) * Mathf.Rad2Deg;
         projectile.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle+180));
 
-        projectile.GetComponent<Rigidbody2D>().AddForce((goober.directionToPlayer + goober.pm.movement*0.5f).normalized * 400);
+        projectile.GetComponent<Rigidbody2D>().AddForce((goober.directionToPlayer + goober.pm.movement*0.5f).normalized * 250);
         projectile.GetComponent<Projectile>().controllingGoober = goober;
 
         yield return new WaitForSeconds(attackCooldown);

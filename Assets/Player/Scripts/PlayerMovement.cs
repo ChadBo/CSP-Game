@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     private float rollInput;
     public bool isRolling = false;
     public bool canRoll = true;
+    public float rollCooldown;
     public float rollCheckDistance;
     [Header("Outside adjustments")]
     public float addedMoveX;
@@ -160,7 +161,7 @@ public class PlayerMovement : MonoBehaviour
         isRolling = false;
         playerSprite.transform.localPosition = new Vector3(0, 0.36f, 0);
         Invoke("CheckToSprint", 0.3f);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(rollCooldown); //________________________________________________
         canRoll = true;
     }
 

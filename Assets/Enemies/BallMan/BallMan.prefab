@@ -134,7 +134,7 @@ MonoBehaviour:
   RangeToTrack: 8
   addedDegrees: 0
   flipOnOverTurn: 1
-  sr: {fileID: 7505078297318759701}
+  srIfOverturn: {fileID: 0}
 --- !u!1 &3012527758558276505
 GameObject:
   m_ObjectHideFlags: 0
@@ -5274,9 +5274,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sightRadius: 15
-  wanderPosition: {x: 0, y: 0}
-  wanderRange: 5
-  roamingSpeed: 1
+  wanderRange: 2
+  roamingSpeed: 0.3
   playerSeen: 0
   chaseDistance: 10
   chaseSpeed: 1.75
@@ -5293,6 +5292,9 @@ MonoBehaviour:
   pause: 0
   maxWanderTime: 6
   curWanderTime: 4
+  wanderZone: {fileID: 0}
+  wanderPosition: {x: 0, y: 0}
+  nativeFacingDirectionForFlipX: 1
   attackBehavior: {fileID: 11400000, guid: e38afde74333c4d179049966001556c9, type: 2}
   canAttack: 1
   attackIndicator: {fileID: 0}
@@ -5301,6 +5303,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   slashSr: {fileID: 0}
   DashHitPlayerDetectionColl: {fileID: 0}
+  hitEffectEnabled: 0
 --- !u!114 &3929668458506507512
 MonoBehaviour:
   m_ObjectHideFlags: 0

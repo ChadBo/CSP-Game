@@ -8,7 +8,6 @@ public class EnemyClass : MonoBehaviour
 
     [Header("Player NOT Seen")]
     public float sightRadius;
-    public Vector2 wanderPosition;
     public float wanderRange;
     public float roamingSpeed;
 

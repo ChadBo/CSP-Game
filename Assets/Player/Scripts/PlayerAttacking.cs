@@ -12,6 +12,7 @@ public class PlayerAttacking : MonoBehaviour
     private SpriteRenderer playerSR;
     private float attackInput;
     public Collider2D selfCollider;
+    private PlayerHealthManager pHealthManager;
 
     public bool canAttack = true;
     [Header("Combo")]
@@ -34,6 +35,7 @@ public class PlayerAttacking : MonoBehaviour
     public float holdAttackRange;
     public float holdAttackMoveSpeed;
     private bool isHolding = false;
+    public float healMeterFillAmount;
 
     [Header("HoldModifiers")]
     public float maxHoldTime;
@@ -66,7 +68,7 @@ public class PlayerAttacking : MonoBehaviour
         pm = GetComponent<PlayerMovement>();
         animator = playerSprite.GetComponent<Animator>();
         playerSR = playerSprite.GetComponent<SpriteRenderer>();
-
+        pHealthManager = gameObject.GetComponent<PlayerHealthManager>();
         weaponSR = weapon.GetComponent<SpriteRenderer>();
 
         hitMaterial = new Material(hitShader);
@@ -86,7 +88,6 @@ public class PlayerAttacking : MonoBehaviour
         //aim
         weaponFaceCursor();
         swordLayerUpdate();
-        flipAttacking();
 
         //combo
         if (comboTimer >= 0)
@@ -161,10 +162,15 @@ public class PlayerAttacking : MonoBehaviour
         attackDirection = (mousePos - (Vector2)gameObject.transform.position).normalized;
         animator.SetFloat("AimHorizontal", attackDirection.x);
         animator.SetFloat("AimVertical", attackDirection.y);
-        if(playerSR.flipX == true)
+        if (attackDirection.x > 0 && attackDirection.x > Mathf.Abs(attackDirection.y))
         {
             pm.canFlip = false;
-            playerSR.flipX = false; //TODO MIGHT BE CAUSE OF POTENTIAL MIRROR BAD STUFF WIHT NEW ART
+            playerSR.flipX = true;
+        }
+        else if (attackDirection.x < 0 && Mathf.Abs(attackDirection.x) > Mathf.Abs(attackDirection.y))
+        {
+            pm.canFlip = false;
+            playerSR.flipX = false;
         }
 
         //Which attack?
@@ -400,6 +406,7 @@ public class PlayerAttacking : MonoBehaviour
     private void EnemyHit(Vector2 attackDir, Rigidbody2D enemyRb, EnemyHealthManager enemyHealth)
     {
         ScreenShakeController.instance.StartShake(0.3f, 1f);
+        pHealthManager.addToHealMeter(healMeterFillAmount);
         if (enemyHealth.knockback > 0)
         {
             enemyRb.GetComponent<Goober>().gotHitPS.Play();

@@ -21,11 +21,14 @@ public class DashAttack : EnemyAttack
     protected override IEnumerator ExecuteAttack(Goober goober)
     {
         goober.canAttack = false;
-        goober.animator.SetBool("Attack", true);
+        goober.animator.SetBool("Warn", true);
         goober.agent.speed = 0;
 
         yield return new WaitForSeconds(attackIndicatorTime);
         goober.DashHitPlayerDetectionColl.enabled = true;
+
+        goober.animator.SetBool("Attack", true);
+        goober.animator.SetBool("Warn", false);
 
         isDashing = true;
         if (useSlashSprite)

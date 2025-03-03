@@ -5088,7 +5088,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sightRadius: 5
-  wanderPosition: {x: 0, y: 0}
   wanderRange: 10
   roamingSpeed: 1
   playerSeen: 0
@@ -5108,6 +5107,8 @@ MonoBehaviour:
   maxWanderTime: 6
   curWanderTime: 5
   wanderZone: {fileID: 0}
+  wanderPosition: {x: 0, y: 0}
+  nativeFacingDirectionForFlipX: 1
   attackBehavior: {fileID: 11400000, guid: 59fb54a2b1c8a4882b97ef326be6aedd, type: 2}
   canAttack: 1
   attackIndicator: {fileID: 0}
