@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackingRadius: 2
   attackDamage: 10
-  attackIndicatorTime: 0.45
+  attackIndicatorTime: 0.75
   attackCooldown: 0.4
   recievedKnockback: 30
-  dashSpeed: 4
+  dashSpeed: 1.5
   dashDuration: 0.35
   overshootDistance: 0.1
   isDashing: 0

@@ -399,6 +399,10 @@ public class PlayerAttacking : MonoBehaviour
                     }
                 }
             }
+            else if (hit.CompareTag("GlassCase"))
+            {
+                hit.GetComponent<GlassCaseHandler>().hitGlass();
+            }
         }
     }
 
@@ -514,7 +518,7 @@ public class PlayerAttacking : MonoBehaviour
         }
     }
 
-    private void ApplyHitEffect(bool enableEffect, SpriteRenderer enemySR)
+    public void ApplyHitEffect(bool enableEffect, SpriteRenderer enemySR)
     {
         if (enemySR == null) return;
 

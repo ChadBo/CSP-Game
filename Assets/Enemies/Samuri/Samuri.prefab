@@ -5087,12 +5087,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7042f8f81b1c4995a3fe36b9b229cb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sightRadius: 5
-  wanderRange: 10
-  roamingSpeed: 1
+  sightRadius: 2
+  wanderRange: 3
+  roamingSpeed: 0.75
   playerSeen: 0
   chaseDistance: 10
   chaseSpeed: 3.5
+  isEnabled: 1
   player: {fileID: 0}
   pm: {fileID: 0}
   playerRb: {fileID: 0}
@@ -5114,7 +5115,7 @@ MonoBehaviour:
   attackIndicator: {fileID: 0}
   localKnockback: 0
   agent: {fileID: 0}
-  animator: {fileID: 0}
+  animator: {fileID: 994942237216286270}
   slashSr: {fileID: 0}
   DashHitPlayerDetectionColl: {fileID: 0}
   hitEffectEnabled: 0
@@ -5130,6 +5131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45ec217ce4d254468aa7458b3a634019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxLife: 0
   life: 50
   knockback: 45
   thingsToDisableOnDeath:
@@ -5141,6 +5143,7 @@ MonoBehaviour:
   - {fileID: 1189149762140856398}
   severOnDeath: 0
   chunk: {fileID: 0}
+  hasStarted: 0
 --- !u!95 &994942237216286270
 Animator:
   serializedVersion: 5

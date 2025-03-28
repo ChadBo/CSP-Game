@@ -196,6 +196,7 @@ MonoBehaviour:
   playerSeen: 0
   chaseDistance: 10
   chaseSpeed: 3.5
+  isEnabled: 1
   player: {fileID: 0}
   pm: {fileID: 0}
   playerRb: {fileID: 0}
@@ -234,7 +235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 10
-  knockback: 45
+  knockback: 4.5
   thingsToDisableOnDeath:
   - {fileID: 505582774039811937}
   - {fileID: 6912051594948741018}
@@ -334,8 +335,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 10
-  m_LinearDrag: 100
-  m_AngularDrag: 100
+  m_LinearDrag: 10
+  m_AngularDrag: 10
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:

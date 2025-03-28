@@ -7,6 +7,7 @@ using UnityEngine.Rendering.Universal;
 
 public class Goober : EnemyClass
 {
+    public bool isEnabled = true;
     // Player
     private Transform target;
     [HideInInspector] public Transform player;
@@ -41,7 +42,7 @@ public class Goober : EnemyClass
     [HideInInspector] public NavMeshAgent agent;
 
     // 🔹 Empty Variables (Only Used by Dash Attack, But Always Exist)
-    [HideInInspector] public Animator animator;
+    public Animator animator;
     [HideInInspector] public SpriteRenderer slashSr;
     [HideInInspector] public Collider2D DashHitPlayerDetectionColl;
 
@@ -70,7 +71,7 @@ public class Goober : EnemyClass
         wanderPosition = transform.position;
 
         // 🔹 Initialize Animator & Slash Variables (If They Exist)
-        animator = GetComponent<Animator>();
+        animator = gameObject.GetComponent<Animator>();
         if (transform.childCount > 0)
         {
             slashSr = transform.GetChild(0).GetComponent<SpriteRenderer>();
@@ -80,10 +81,14 @@ public class Goober : EnemyClass
 
     private void Update()
     {
+        if (!isEnabled) enableSelf();
+
         if (pause) return;
 
-        if (state == 0) patrol();
-        else if (state == 1) chasePlayer();
+        if (isEnabled) disableSelf();
+
+        if (state == 0 && isEnabled) patrol();
+        else if (state == 1 && isEnabled) chasePlayer();
 
         directionToPlayer = ((Vector2)player.position - (Vector2)transform.position).normalized;
 
@@ -91,6 +96,33 @@ public class Goober : EnemyClass
         flipSideways();
         animator.SetFloat("Speed", agent.speed);
     }
+
+    private void disableSelf()
+    {
+        if (Vector2.Distance(transform.position, player.position) > 15)
+        {
+            StopAllCoroutines();
+            pause = true;
+            isEnabled = false;
+            gameObject.GetComponent<Collider2D>().enabled = false;
+            sr.enabled = false;
+            animator.enabled = false;
+            agent.enabled = false;
+        }
+    }
+    private void enableSelf()
+    {
+        if (Vector2.Distance(transform.position, player.position) < 15)
+        {
+            pause = false;
+            isEnabled = true;
+            gameObject.GetComponent<Collider2D>().enabled = true;
+            sr.enabled = true;
+            animator.enabled = true;
+            agent.enabled = true;
+        }
+    }
+
 
     private void SetCanAttack() => canAttack = true;
 

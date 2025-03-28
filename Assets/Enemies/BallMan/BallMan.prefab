@@ -5279,6 +5279,7 @@ MonoBehaviour:
   playerSeen: 0
   chaseDistance: 10
   chaseSpeed: 1.75
+  isEnabled: 1
   player: {fileID: 0}
   pm: {fileID: 0}
   playerRb: {fileID: 0}

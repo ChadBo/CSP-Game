@@ -17,8 +17,8 @@ MonoBehaviour:
   attackIndicatorTime: 0.6
   attackCooldown: 1
   recievedKnockback: 25
-  dashSpeed: 23
-  dashDuration: 0.3
+  dashSpeed: 2
+  dashDuration: 0.6
   overshootDistance: 0
   isDashing: 0
   useSlashSprite: 0

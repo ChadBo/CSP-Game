@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class OpenStickerSheet : MonoBehaviour
 {
+    public Button menuButton;
+
     public Image Paper;
 
     // Sticker images to be assigned in the Inspector
@@ -25,6 +28,8 @@ public class OpenStickerSheet : MonoBehaviour
     public bool menuIsOpen;
     private bool hasBeenCalled = false;
 
+    private TextMeshProUGUI TabTooltip;
+
     void Start()
     {
         // Initialize the dictionary with sticker names and corresponding images
@@ -44,6 +49,12 @@ public class OpenStickerSheet : MonoBehaviour
         {
             stickerBools[key] = false;
         }
+
+        TabTooltip = GameObject.Find("TabTooltip").GetComponent<TextMeshProUGUI>();
+
+        menuButton.enabled = false;
+        menuButton.gameObject.GetComponent<Image>().enabled = false;
+        menuButton.gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().enabled = false;
     }
 
     void Update()
@@ -62,6 +73,8 @@ public class OpenStickerSheet : MonoBehaviour
 
     private void OpenMenu()
     {
+        Cursor.visible = true;
+
         Paper.enabled = true;
         hasBeenCalled = true;
         Invoke(nameof(SetMenuIsOpen), 0.3f);
@@ -74,10 +87,15 @@ public class OpenStickerSheet : MonoBehaviour
                 stickerImages[sticker.Key].enabled = true;
             }
         }
+        menuButton.enabled = true;
+        menuButton.gameObject.GetComponent<Image>().enabled = true;
+        menuButton.gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().enabled = true;
     }
 
     private void CloseMenu()
     {
+        Cursor.visible = false;
+
         Paper.enabled = false;
         hasBeenCalled = true;
         Invoke(nameof(SetMenuIsOpen), 0.3f);
@@ -87,6 +105,9 @@ public class OpenStickerSheet : MonoBehaviour
         {
             sticker.enabled = false;
         }
+        menuButton.enabled = true;
+        menuButton.gameObject.GetComponent<Image>().enabled = true;
+        menuButton.gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().enabled = true;
     }
 
     private void SetMenuIsOpen()
@@ -106,5 +127,16 @@ public class OpenStickerSheet : MonoBehaviour
         {
             Debug.LogWarning($"Sticker '{key}' does not exist in dictionary.");
         }
+    }
+
+    public void EnableTabTooltip()
+    {
+        TabTooltip.enabled = true;
+        Invoke("disableTooltip", 2f);
+    }
+
+    private void disableTooltip()
+    {
+        TabTooltip.enabled = false;
     }
 }

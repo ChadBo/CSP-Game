@@ -13,6 +13,8 @@ public class PlayerHealthManager : MonoBehaviour
     public Image healMeterAmount;
     private float healInput;
 
+    public Vector2 checkpointPos;
+    public Animator blackScreenAnimator;
 
     // Update is called once per frame
     void Update()
@@ -20,15 +22,28 @@ public class PlayerHealthManager : MonoBehaviour
         healInput = InputManager.Heal;
         Die();
         setHealthBarLook();
-        UseHeal();
+        if (healInput > 0 && healMeterAmount.fillAmount == 1)
+        {
+            UseHeal();
+        }
     }
 
     private void Die()
     {
         if (health <= 0)
         {
-            Destroy(gameObject);
+            health = 5;
+            StartCoroutine(fadeBlack());
+            Invoke("dieStuff", 0.6f);
         }
+    }
+
+    private void dieStuff()
+    {
+        transform.position = checkpointPos;
+        GameObject.FindWithTag("Checkpoint").GetComponent<InteractSavePoint>().TriggerRespawnEnemies();
+        health = 5;
+        gameObject.GetComponent<PlayerAttacking>().ApplyHitEffect(false, gameObject.GetComponent<PlayerMovement>().sr);
     }
 
     private void setHealthBarLook()
@@ -44,10 +59,14 @@ public class PlayerHealthManager : MonoBehaviour
 
     public void UseHeal()
     {
-        if(healInput > 0 && healMeterAmount.fillAmount == 1)
-        {
-            health = maxHealth;
-            healMeterAmount.fillAmount = 0f;
-        }
+        health = maxHealth;
+        healMeterAmount.fillAmount = 0f;
+    }
+
+    public IEnumerator fadeBlack()
+    {
+        blackScreenAnimator.SetBool("FadeIn", true);
+        yield return new WaitForSeconds (1f);
+        blackScreenAnimator.SetBool("FadeIn", false);
     }
 }

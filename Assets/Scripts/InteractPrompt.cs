@@ -27,6 +27,7 @@ public class InteractPrompt : MonoBehaviour
                 swordObjSr.enabled = false;
                 Destroy(PromptSr.gameObject);
                 gameObject.GetComponent<InteractPrompt>().enabled = false;
+                
             }
         }
     }

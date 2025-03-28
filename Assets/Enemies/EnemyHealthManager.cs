@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class EnemyHealthManager : MonoBehaviour
 {
+    [HideInInspector] public float maxLife;
     public float life;
     public float knockback;
     public Coroutine dashAttackCoroutine;
@@ -12,7 +13,13 @@ public class EnemyHealthManager : MonoBehaviour
     public bool severOnDeath = false;
     public GameObject chunk;
 
-    private bool hasStarted = false;
+    [HideInInspector] public bool hasStarted = false;
+
+    private void Start()
+    {
+        maxLife = life;
+    }
+
     private void Update()
     {
         if(life <= 0 && !hasStarted)
