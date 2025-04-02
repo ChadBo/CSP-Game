@@ -37,6 +37,7 @@ public class EnemyHealthManager : MonoBehaviour
         goober.StopAllCoroutines();
         goober.animator.SetBool("Die", true);
         goober.ApplyHitEffect(false, goober.pm.sr);
+        goober.sr.sortingOrder = 2;
 
         gameObject.GetComponent<NavMeshAgent>().enabled = false;
 

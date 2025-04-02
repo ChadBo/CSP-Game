@@ -105,9 +105,9 @@ public class OpenStickerSheet : MonoBehaviour
         {
             sticker.enabled = false;
         }
-        menuButton.enabled = true;
-        menuButton.gameObject.GetComponent<Image>().enabled = true;
-        menuButton.gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().enabled = true;
+        menuButton.enabled = false;
+        menuButton.gameObject.GetComponent<Image>().enabled = false;
+        menuButton.gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().enabled = false;
     }
 
     private void SetMenuIsOpen()

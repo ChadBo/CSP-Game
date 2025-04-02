@@ -5,9 +5,10 @@ using UnityEngine.AI;
 using UnityEngine.Tilemaps;
 using UnityEngine.Rendering.Universal;
 
-public class Boss : EnemyClass
+public class Boss : MonoBehaviour
 {
     public bool isEnabled = true;
+    public bool playerSeen;
     // Player
     private Transform target;
     [HideInInspector] public Transform player;
@@ -25,15 +26,12 @@ public class Boss : EnemyClass
     private string[] states = { "Patrol", "Chase", "Attack" }; // Use the index as the state
     public int state = 0;
     public bool pause = false;
-    public float maxWanderTime = 6f;
-    public float curWanderTime;
-    public Collider2D wanderZone;
-    public Vector2 wanderPosition;
     public int nativeFacingDirectionForFlipX = -1;
+    public bool canFlip = true;
 
     [Header("Attacking")]
-    public EnemyAttack attackBehavior;
     public bool canAttack = true;
+    public float currentAttackRadius;
     [HideInInspector] public SpriteRenderer attackIndicator;
     private EnemyHealthManager healthScript;
     [HideInInspector] public float localKnockback;
@@ -67,15 +65,14 @@ public class Boss : EnemyClass
         localKnockback = healthScript.knockback;
         ResetMaterial();
 
-        wanderPosition = transform.position;
-
         // 🔹 Initialize Animator & Slash Variables (If They Exist)
         animator = gameObject.GetComponent<Animator>();
         if (transform.childCount > 0)
         {
             slashSr = transform.GetChild(0).GetComponent<SpriteRenderer>();
-            DashHitPlayerDetectionColl = transform.GetChild(1).GetComponent<Collider2D>();
         }
+
+        target = player;
     }
 
     private void Update()
@@ -107,14 +104,13 @@ public class Boss : EnemyClass
         if (!agent.enabled) return;
 
         agent.SetDestination(target.position);
-        agent.speed = chaseSpeed;
         checkIfCanAttack();
     }
 
     // ATTACKING
     private void checkIfCanAttack()
     {
-        if (Vector2.Distance(transform.position, player.position) < attackBehavior.attackingRadius && canAttack)
+        if (Vector2.Distance(transform.position, player.position) < currentAttackRadius && canAttack)
         {
             Collider2D selfColl = gameObject.GetComponent<Collider2D>();
             selfColl.enabled = false;
@@ -124,7 +120,7 @@ public class Boss : EnemyClass
             if (toPlayer.collider != null && toPlayer.collider.CompareTag("Player"))
             {
                 state = 2;
-//                attackBehavior.Attack(this);
+                StartCoroutine(SlashAttack());
             }
         }
     }
@@ -166,6 +162,7 @@ public class Boss : EnemyClass
 
     private void flipSideways()
     {
+        if (!canFlip) return;
         if (nativeFacingDirectionForFlipX == -1 && directionToPlayer.x > 0)
         {
             sr.flipX = true;
@@ -178,5 +175,23 @@ public class Boss : EnemyClass
         {
             sr.flipX = false;
         }
+    }
+
+    private IEnumerator SlashAttack()
+    {
+        canAttack = false;
+        animator.SetBool("Slash", true);
+        agent.speed = 0;
+        canFlip = false;
+
+        yield return new WaitForSeconds(1f);
+
+        animator.SetBool("Slash", false);
+        canFlip = true;
+
+        yield return new WaitForSeconds(1f);
+        agent.speed = 3.5f;
+        canAttack = true;
+        state = 1;
     }
 }

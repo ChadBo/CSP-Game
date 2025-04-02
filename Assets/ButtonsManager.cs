@@ -6,6 +6,15 @@ using UnityEngine.SceneManagement;
 public class ButtonsManager : MonoBehaviour
 {
     public Animator blackAnimator;
+    public AudioSource songPlayer;
+
+    private void Update()
+    {
+        if(blackAnimator.GetBool("FadeIn"))
+        {
+            songPlayer.volume -= Time.deltaTime*0.5f;
+        }
+    }
 
     private IEnumerator loadSceneNum()
     {
